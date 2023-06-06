@@ -21,6 +21,7 @@ module.exports = {
         },
         gray: {
           0: "#0B0D0D",
+          50: "#1b1e1e",
           100: "#212529",
           200: "#495057",
           300: "#868E96",
@@ -29,7 +30,8 @@ module.exports = {
           600: "#DEE2E6",
           700: "#E9ECEF",
           800: "#F1F3F5",
-          900: "#F8F9FA"
+          900: "#F8F9FA",
+          950: "#FDFDFD"
         },
         feedBack: {
           alert: {
@@ -56,6 +58,18 @@ module.exports = {
         },
         whiteFixed: "#FFFFFF"
       },
+      fontSize: {
+        "typography-20": "1.25rem",
+        "typography-25": "1.5625rem",
+        "typography-30": "1.875rem",
+        "typography-35": "2.1875rem",
+        "typography-40": "2.5rem",
+        "typography-45": "2.8125rem"
+      },
+      padding: {
+        body: "clamp(15px, 5%, 50px)",
+        tags: "clamp(10px, 5%, 25px)"
+      }
     },
   },
   darkMode: "class",
