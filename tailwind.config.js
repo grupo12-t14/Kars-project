@@ -12,7 +12,52 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        brand: {
+          100: "#4529E6",
+          200: "#5126EA",
+          300: "#B0A6F0",
+          400: "#EDEAFD"
+        },
+        gray: {
+          0: "#0B0D0D",
+          100: "#212529",
+          200: "#495057",
+          300: "#868E96",
+          400: "#ADB5BD",
+          500: "#CED4DA",
+          600: "#DEE2E6",
+          700: "#E9ECEF",
+          800: "#F1F3F5",
+          900: "#F8F9FA"
+        },
+        feedBack: {
+          alert: {
+            100: "#CD2B31",
+            200: "#FDD8D8",
+            300: "#FFE5E5"
+          },
+          success: {
+            100: "#18794E",
+            200: "#CCEBD7",
+            300: "#DDF3E4"
+          }
+        },
+        random: {
+          100: "#E34D8C",
+          200: "#C04277",
+          300: "#7D2A4D",
+          400: "#7000FF",
+          500: "#6200E3",
+          600: "#36007D",
+          700: "#349974",
+          800: "#2A7D5F",
+          900: "#153D2E",
+        },
+        whiteFixed: "#FFFFFF"
+      },
     },
   },
+  darkMode: "class",
   plugins: [],
 }
