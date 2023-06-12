@@ -69,7 +69,7 @@ const Detail = () => {
             id="totalInfosUser"
             className="w-full mt-[32px] md:w-[35%] md:mt-[0px]"
           >
-            <div id='fotos' className="bg-gray-950 rounded w-full p-[26px]">
+            <div id='pictures' className="bg-gray-950 rounded w-full p-[26px]">
               <h2 className="text-gray-1 font-bold text-20px">Fotos</h2>
               <div className=" grid grid-cols-3 gap-3 w-full p-7">
                 {images.map((fotos, index) => {
