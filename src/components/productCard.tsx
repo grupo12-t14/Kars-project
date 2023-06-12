@@ -1,8 +1,5 @@
-
 "use client";
 import Image from "next/image";
-import carro from "../assets/car.webp";
-
 
 interface iProduct {
   id: string;
@@ -25,7 +22,7 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
     sellValueNumber + fipeValueNumber * 0.05 <= fipeValueNumber;
   return (
     <>
-      <div className="min-w-[80%] max-w-[312px] max-sm:text-sm relative">
+      <div className="max-w-[312px] max-md:w-5/6 max-sm:text-sm relative">
         <p
           className={
             announcement.isActive
@@ -44,30 +41,26 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
         >
           {isSellProfitable && "$"}
         </p>
-        <div className="hover:border-brand-100 hover:border-2 border-2 border-transparent">
-          <Image className="bg-gray-500" src={carro} alt="coverImage" />
+        <div className="hover:border-brand-100 hover:border-2 border-2 border-transparent mb-5">
+          <Image className="bg-gray-500" src="" alt="coverImage" />
         </div>
-        <div className="flex flex-col gap-2 p-3">
-          <p className="font-bold">{announcement.model}</p>
-          <p className="truncate ... text-gray-200 text-[12px]">
-            {announcement.description}
-          </p>
-
+        <div className="flex flex-col gap-2 ">
+          <p className="font-semibold">{announcement.model}</p>
+          <p className="truncate ...">{announcement.description}</p>
           <div className="flex place-items-center gap-2">
             <p className="bg-brand-100 text-white h-8 w-8 rounded-full flex place-items-center justify-center">
               U
             </p>
             <p>Usuário</p>
           </div>
-          <div className="flex items-center gap-3 sm:gap-1 relative text-[12px]">
-            <p className="p-1 rounded-md text-brand-100 bg-brand-400 text-[10px]">
+          <div className="flex gap-3 relative">
+            <p className="p-1 rounded-md text-brand-100 bg-brand-400">
               {announcement.mileage} KM
             </p>
-            <p className="p-1 rounded-md text-brand-100 bg-brand-400 text-[10px]">
+            <p className="p-1 rounded-md text-brand-100 bg-brand-400">
               {announcement.year}
             </p>
-            <p className="absolute font-bold right-0">
-
+            <p className="absolute font-semibold right-0">
               R${" "}
               {sellValueNumber.toLocaleString("pt-br", {
                 minimumFractionDigits: 2,
