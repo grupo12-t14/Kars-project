@@ -34,7 +34,7 @@ const Detail = () => {
               <h2 className="text-gray-1 font-bold text-20px">
                 Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
               </h2>
-              <div className="flex flex-col w-full gap-3 mt-[43px] md:flex-row items-center justify-between">
+              <div className="flex flex-col w-full gap-3 mt-[43px] md:flex-row md:items-center md:justify-between">
                 <div className="flex gap-3">
                   <span className="text-brand-100 bg-brand-400 py-[4px] px-[8px] rounded">
                     2013
@@ -69,14 +69,14 @@ const Detail = () => {
             id="totalInfosUser"
             className="w-full mt-[32px] md:w-[35%] md:mt-[0px]"
           >
-            <div id='fotos' className="bg-gray-950 rounded w-full p-[36px]">
+            <div id='fotos' className="bg-gray-950 rounded w-full p-[26px]">
               <h2 className="text-gray-1 font-bold text-20px">Fotos</h2>
-              <div className="mt-[32px] grid grid-cols-3 gap-7 w-full">
+              <div className=" grid grid-cols-3 gap-3 w-full p-7">
                 {images.map((fotos, index) => {
                   return (
                     <figure
                       key={index}
-                      className="bg-gray-700 w-[70px] h-[70px] p-2 flex justify-center items-center"
+                      className="bg-gray-700 w-auto h-auto p-3 flex justify-center items-center"
                     >
                       <Image
                         src={fotos}
