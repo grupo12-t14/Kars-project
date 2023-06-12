@@ -15,7 +15,7 @@ interface iProduct {
   description: string;
   coverImage: string;
 }
-const ProductCard = ({ announcement }: { announcement: any }) => {
+const ProductCard = ({ announcement }: { announcement: iProduct }) => {
   const sellValueNumber = parseInt(announcement.sellPrice);
   const fipeValueNumber = parseInt(announcement.fipePrice);
   const isSellProfitable =
