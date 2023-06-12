@@ -1,5 +1,8 @@
+
+"use client";
 import Image from "next/image";
 import carro from "../assets/car.webp";
+
 
 interface iProduct {
   id: string;
@@ -49,6 +52,7 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
           <p className="truncate ... text-gray-200 text-[12px]">
             {announcement.description}
           </p>
+
           <div className="flex place-items-center gap-2">
             <p className="bg-brand-100 text-white h-8 w-8 rounded-full flex place-items-center justify-center">
               U
@@ -63,6 +67,7 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
               {announcement.year}
             </p>
             <p className="absolute font-bold right-0">
+
               R${" "}
               {sellValueNumber.toLocaleString("pt-br", {
                 minimumFractionDigits: 2,

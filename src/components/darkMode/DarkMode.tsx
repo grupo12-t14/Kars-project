@@ -16,12 +16,12 @@ const ThemeSwitcher = () => {
 
   return (
     <div className="flex gap-2">
-      The current theme is: {theme}
+      {/* The current theme is: {theme}
       <button
         onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
       >
         Mode
-      </button>
+      </button> */}
     </div>
   );
 };

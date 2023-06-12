@@ -75,5 +75,10 @@ module.exports = {
       },
     },
   },
+  paths: {
+    "@*": ["./*"],
+  },
+  darkMode: "class",
+
   plugins: [],
 };
