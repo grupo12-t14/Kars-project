@@ -9,16 +9,16 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
         brand: {
           100: "#4529E6",
           200: "#5126EA",
           300: "#B0A6F0",
-          400: "#EDEAFD"
+          400: "#EDEAFD",
         },
         gray: {
           0: "#0B0D0D",
@@ -32,19 +32,19 @@ module.exports = {
           700: "#E9ECEF",
           800: "#F1F3F5",
           900: "#F8F9FA",
-          950: "#FDFDFD"
+          950: "#FDFDFD",
         },
         feedBack: {
           alert: {
             100: "#CD2B31",
             200: "#FDD8D8",
-            300: "#FFE5E5"
+            300: "#FFE5E5",
           },
           success: {
             100: "#18794E",
             200: "#CCEBD7",
-            300: "#DDF3E4"
-          }
+            300: "#DDF3E4",
+          },
         },
         random: {
           100: "#E34D8C",
@@ -57,7 +57,7 @@ module.exports = {
           800: "#2A7D5F",
           900: "#153D2E",
         },
-        whiteFixed: "#FFFFFF"
+        whiteFixed: "#FFFFFF",
       },
       fontSize: {
         "typography-20": "1.25rem",
@@ -65,14 +65,17 @@ module.exports = {
         "typography-30": "1.875rem",
         "typography-35": "2.1875rem",
         "typography-40": "2.5rem",
-        "typography-45": "2.8125rem"
+        "typography-45": "2.8125rem",
       },
       padding: {
         body: "clamp(15px, 5%, 50px)",
-        tags: "clamp(10px, 5%, 25px)"
-      }
+        tags: "clamp(10px, 5%, 25px)",
+      },
     },
+  },
+  paths: {
+    "@*": ["./*"],
   },
   darkMode: "class",
   plugins: [],
-}
+};
