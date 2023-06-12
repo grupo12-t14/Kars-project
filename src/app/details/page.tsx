@@ -12,13 +12,14 @@ const Detail = () => {
   ];
 
   return (
-    <div className="bg-gray-700 w-full h-full">
-      <header className="bg-gray-950 w-full h-[111px]"></header>
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <p className="bg-brand-100">Kars project</p>
+
       <div className="relative bg-gray-500 w-full">
         <div className="bg-brand-100 w-full h-[436px]"></div>
-        <div className="absolute mt-[-400px] left-1/2 transform -translate-x-1/2 w-[90%] md:min-w-[700px] md:w-[85%] md:flex md:justify-between md:items-center">
-          <div>
-            <div className="w-full h-[355px] flex justify-center items-center p[10px] bg-gray-950 rounded md:min-w-[700px] md:w-[45%]">
+        <div className="absolute mt-[-400px] left-1/2 transform -translate-x-1/2 w-[90%] md:w-[85%] md:flex md:justify-between md:items-center">
+          <div className="w-full md:w-[60%]">
+            <div className="w-full h-[355px] flex justify-center items-center p[10px] bg-gray-950 rounded ">
               <Image
                 src={imageMainCar}
                 width={100}
@@ -28,12 +29,12 @@ const Detail = () => {
             </div>
             <div
               id="purchase"
-              className="bg-gray-950 w-full rounded p-[44px] mt-[20px] md:min-w-[700px] md:w-[45%]"
+              className="bg-gray-950 w-full rounded p-[44px] mt-[20px] "
             >
               <h2 className="text-gray-1 font-bold text-20px">
                 Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
               </h2>
-              <div className="flex flex-col w-[100%] gap-3 mt-[43px] p-3 md:min-w-[700px] md:flex-row items-center">
+              <div className="flex flex-col w-[100%] gap-3 mt-[43px] p-3 md:flex-row items-center">
                 <div className="flex gap-3">
                   <span className="text-brand-100 bg-brand-400 py-[4px] px-[8px] rounded">
                     2013
@@ -42,7 +43,9 @@ const Detail = () => {
                     0 km
                   </span>
                 </div>
-                <span className="text-gray-1 font-bold justify-end">R$ 00.000,00</span>
+                <span className="text-gray-1 font-bold justify-end">
+                  R$ 00.000,00
+                </span>
               </div>
               <button className="bg-brand-100 text-gray-950 font-bold h-[38px] w-[100px] rounded mt-[24px]">
                 Comprar
@@ -50,7 +53,7 @@ const Detail = () => {
             </div>
             <div
               id="description"
-              className="w-full rounded mt-[24px] p-[36px] bg-gray-950 md:min-w-[700px] md:w-[45%]"
+              className="w-full rounded mt-[24px] p-[36px] bg-gray-950 "
             >
               <h2 className="text-gray-1 font-bold text-20px">Descrição</h2>
               <p className="mt-[32px]">
@@ -61,16 +64,20 @@ const Detail = () => {
               </p>
             </div>
           </div>
+
           <div
-            id="total infos user"
-            className="rounded mt-[32px] md:min-w-[700px] md:w-[30%]"
+            id="totalInfosUser"
+            className="w-full md:w-[35%]"
           >
-            <div className="bg-gray-950 rounded w-full p-[36px] mt-[32px]">
+            <div id='fotos' className="bg-gray-950 rounded w-full p-[36px] mt-[32px] md:mt-0">
               <h2 className="text-gray-1 font-bold text-20px">Fotos</h2>
-              <div className="mt-[32px] grid grid-cols-3 gap-4">
+              <div className="mt-[32px] grid grid-cols-3 gap-4 w-full">
                 {images.map((fotos, index) => {
                   return (
-                    <figure key={index} className="bg-gray-700 w-[100px] h-[100px] p-2 flex justify-center items-center">
+                    <figure
+                      key={index}
+                      className="bg-gray-700 w-[70px] h-[70px] p-2 flex justify-center items-center"
+                    >
                       <Image
                         src={fotos}
                         width={100}
@@ -82,6 +89,7 @@ const Detail = () => {
                 })}
               </div>
             </div>
+
             <div
               id="user"
               className="bg-gray-950 rounded w-full p-[40px] mt-[52px]"
@@ -105,7 +113,7 @@ const Detail = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
