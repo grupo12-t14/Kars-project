@@ -71,7 +71,7 @@ const Detail = () => {
           >
             <div id='pictures' className="bg-gray-950 rounded w-full p-[26px]">
               <h2 className="text-gray-1 font-bold text-20px">Fotos</h2>
-              <div className=" grid grid-cols-3 gap-3 w-full p-7">
+              <div className=" grid grid-cols-3 gap-3 w-full p-2">
                 {images.map((fotos, index) => {
                   return (
                     <figure
