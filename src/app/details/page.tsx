@@ -17,8 +17,8 @@ const Detail = () => {
 
       <div className="relative bg-gray-500 w-full">
         <div className="bg-brand-100 w-full h-[436px]"></div>
-        <div className="absolute mt-[-400px] left-1/2 transform -translate-x-1/2 w-[90%] md:w-[85%] md:flex md:justify-between md:items-center">
-          <div className="w-full md:w-[60%]">
+        <div className="absolute mt-[-400px] left-1/2 transform -translate-x-1/2 w-[90%] md:w-[85%] md:flex md:justify-between">
+          <div className="w-full md:w-[60%] md:mt-0">
             <div className="w-full h-[355px] flex justify-center items-center p[10px] bg-gray-950 rounded ">
               <Image
                 src={imageMainCar}
@@ -34,7 +34,7 @@ const Detail = () => {
               <h2 className="text-gray-1 font-bold text-20px">
                 Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
               </h2>
-              <div className="flex flex-col w-[100%] gap-3 mt-[43px] p-3 md:flex-row items-center">
+              <div className="flex flex-col w-full gap-3 mt-[43px] md:flex-row items-center justify-between">
                 <div className="flex gap-3">
                   <span className="text-brand-100 bg-brand-400 py-[4px] px-[8px] rounded">
                     2013
@@ -67,11 +67,11 @@ const Detail = () => {
 
           <div
             id="totalInfosUser"
-            className="w-full md:w-[35%]"
+            className="w-full mt-[32px] md:w-[35%] md:mt-[0px]"
           >
-            <div id='fotos' className="bg-gray-950 rounded w-full p-[36px] mt-[32px] md:mt-0">
+            <div id='fotos' className="bg-gray-950 rounded w-full p-[36px]">
               <h2 className="text-gray-1 font-bold text-20px">Fotos</h2>
-              <div className="mt-[32px] grid grid-cols-3 gap-4 w-full">
+              <div className="mt-[32px] grid grid-cols-3 gap-7 w-full">
                 {images.map((fotos, index) => {
                   return (
                     <figure
@@ -92,7 +92,7 @@ const Detail = () => {
 
             <div
               id="user"
-              className="bg-gray-950 rounded w-full p-[40px] mt-[52px]"
+              className="bg-gray-950 rounded w-full p-[40px] mt-[52px] flex flex-col justify-center"
             >
               <div className="bg-brand-100 w-[77px] h-[77px] rounded-full flex justify-center items-center mx-auto">
                 <p className="text-gray-1 font-bold">HR</p>
