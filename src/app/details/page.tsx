@@ -1,5 +1,5 @@
 import Image from "next/image";
-import imageMainCar from "../../../mainImageDetail.png";
+import imageMainCar from "../../assets/mainImageDetail.png";
 
 const Detail = () => {
   const images = [
@@ -13,8 +13,6 @@ const Detail = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <p className="bg-brand-100">Kars project</p>
-
       <div className="relative bg-gray-500 w-full">
         <div className="bg-brand-100 w-full h-[436px]"></div>
         <div className="absolute mt-[-400px] left-1/2 transform -translate-x-1/2 w-[90%] md:w-[85%] md:flex md:justify-between">
@@ -69,9 +67,9 @@ const Detail = () => {
             id="totalInfosUser"
             className="w-full mt-[32px] md:w-[35%] md:mt-[0px]"
           >
-            <div id='pictures' className="bg-gray-950 rounded w-full p-[26px]">
+            <div id="pictures" className="bg-gray-950 rounded w-full p-[26px]">
               <h2 className="text-gray-1 font-bold text-20px">Fotos</h2>
-              <div className=" grid grid-cols-3 gap-3 w-full p-7">
+              <div className=" grid grid-cols-3 gap-3 w-full p-2">
                 {images.map((fotos, index) => {
                   return (
                     <figure
