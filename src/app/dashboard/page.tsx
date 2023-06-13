@@ -9,6 +9,8 @@ import {
 import ProductCard from "@/components/productCard";
 import { mock } from "../../components/mock";
 import { useState } from "react";
+import { Navbar } from "@/components/navBar";
+import { Footer } from "@/components/footer";
 
 const Home: NextPage = () => {
   const [filters, setFilters] = useState(false);
@@ -40,6 +42,7 @@ const Home: NextPage = () => {
       )}
 
       <main className="flex flex-col w-full">
+        <Navbar />
         <div className="flex justify-center items-end">
           <div className="w-full h-fit relative">
             <div
@@ -107,6 +110,7 @@ const Home: NextPage = () => {
             Seguinte &#62;
           </span>
         </div>
+        <Footer />
       </main>
     </>
   );
