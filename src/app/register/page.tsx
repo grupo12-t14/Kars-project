@@ -12,8 +12,9 @@ import { UserContext } from "../../contexts/contexts";
 import { FormComponent } from "@/components/formComponent";
 
 const Register: NextPage = () => {
-  const { getRegisterData, registerSuccess, setRegisterSuccess, router }: any =
+  const { getRegisterData, registerSuccess, setRegisterSuccess, router, token }: any =
     useContext(UserContext);
+  token && localStorage.removeItem("@TOKEN");
 
   const [activeButton, setActiveButton] = useState("buyer");
 
