@@ -2,7 +2,7 @@ import "./globals.scss";
 import { Inter } from "next/font/google";
 import Providers from "./providers";
 import ThemeSwitcher from "@/components/darkMode/DarkMode";
-import { UserProvider } from "./contexts/contexts";
+import { UserProvider } from "../contexts/contexts";
 
 const inter = Inter({ subsets: ["latin"] });
 

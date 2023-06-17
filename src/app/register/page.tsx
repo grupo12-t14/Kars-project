@@ -8,7 +8,8 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "../../schemas/registerSchema";
-import { UserContext } from "../contexts/contexts";
+import { UserContext } from "../../contexts/contexts";
+import { FormComponent } from "@/components/formComponent";
 
 const Register: NextPage = () => {
   const { getRegisterData, registerSuccess, setRegisterSuccess, router }: any =
@@ -77,8 +78,8 @@ const Register: NextPage = () => {
 
   return (
     <>
-      {!registerSuccess && (
-        <div className="fixed top-0 flex justify-center w-screen h-screen bg-[#00000070]">
+      {registerSuccess && (
+        <div className="fixed top-0 z-10 flex justify-center w-screen h-screen bg-[#00000070]">
           <div className="relative top-[65px] flex flex-col justify-between p-4 w-[90%] max-h-[300px] sm-[60%] lg:w-[35%] bg-white rounded-lg sm:p-8">
             <div className="flex justify-between items-center text-typography-20">
               <h3 className="font-bold">Sucesso!</h3>
@@ -107,11 +108,7 @@ const Register: NextPage = () => {
       <main className="flex flex-col w-full bg-gray-800">
         <Navbar />
         <div className="flex items-center justify-center py-9">
-          <form
-            onSubmit={handleSubmit(getRegisterData)}
-            className="flex flex-col w-[95%] gap-8 p-[16px] bg-white rounded-md sm:w-[400px]
-            sm:p-[34px]"
-          >
+          <FormComponent handleSubmit={handleSubmit} formData={getRegisterData}>
             <h1 className="font-semibold text-typography-25">Cadastro</h1>
             <p className="font-bold text-[18px]">Informações Pessoais</p>
             <InputContainer
@@ -170,11 +167,11 @@ const Register: NextPage = () => {
               type="date"
               register={register("birthDate")}
             />
-            {errors.birthDate?.message && (
+            {/* {errors.birthDate?.message && (
               <span className="text-feedBack-alert-100 text-[14px] my-[-25px]">
                 {errors.birthDate.message}
               </span>
-            )}
+            )} */}
             <InputContainer
               label="Descrição"
               placeholder="Digitar Descrição"
@@ -335,7 +332,7 @@ const Register: NextPage = () => {
             >
               Finalizar cadastro
             </button>
-          </form>
+          </FormComponent>
         </div>
         <Footer />
       </main>
