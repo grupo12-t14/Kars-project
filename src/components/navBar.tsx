@@ -5,16 +5,16 @@ interface User {
   accountType: string;
 }
 export const Navbar = () => {
-  // const user: any = {
-  //   name: "Client",
-  //   accountType: "seller",
-  // };
-  const user: any = false;
+  const user: any = {
+    name: "Client",
+    accountType: "seller",
+  };
+  // const user: any = false;
   const [profileDisplay, setProfileDisplay] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   return (
-    <div className="w-full flex justify-between border-b-2 border-b-gray-600 place-items-center  h-16">
+    <header className="w-full flex justify-between border-b-2 border-b-gray-600 place-items-center  h-16 md:px-12 mx-auto">
       <p className="text-lg bg-clip-text text-transparent w-fit font-bold bg-gradient-to-r from-black to-brand-100">
         Motors <span className="text-xs">shop</span>
       </p>
@@ -103,7 +103,7 @@ export const Navbar = () => {
               }}
               className={
                 profileDisplay
-                  ? "flex flex-col bg-white absolute r-0 top-14 text-sm gap-2"
+                  ? "flex flex-col bg-white absolute z-[1] top-14 w-[120px]  text-sm gap-2 rounded-md shadow-sm shadow-gray-300/60"
                   : "hidden"
               }
             >
@@ -115,6 +115,6 @@ export const Navbar = () => {
           </div>
         </>
       )}
-    </div>
+    </header>
   );
 };

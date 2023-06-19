@@ -4,7 +4,7 @@ import React from "react";
 export const Footer = () => {
   return (
     <>
-      <div className="flex place-items-center justify-between w-full p-6  text-white bg-gray-0">
+      <footer className="flex place-items-center justify-between w-full p-6  text-white bg-gray-0">
         <p className="max-sm:text-sm text-lg">
           Motors <span className="max-sm:text-xs text-sm">shop</span>
         </p>
@@ -23,7 +23,7 @@ export const Footer = () => {
         >
           ^
         </button>
-      </div>
+      </footer>
     </>
   );
 };
