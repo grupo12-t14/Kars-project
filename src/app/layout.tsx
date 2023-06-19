@@ -2,6 +2,7 @@ import "./globals.scss";
 import { Inter } from "next/font/google";
 import Providers from "./providers";
 import ThemeSwitcher from "@/components/darkMode/DarkMode";
+import { UserProvider } from "../contexts/contexts";
 import { Navbar } from "@/components/navBar";
 import { Footer } from "@/components/footer";
 
@@ -20,12 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="text-black bg-white">
-        <Providers>
-          <Navbar></Navbar>
-          <ThemeSwitcher />
-          {children}
-          <Footer></Footer>
-        </Providers>
+        <UserProvider>
+            <ThemeSwitcher />
+            <Navbar></Navbar>
+            {children}
+            <Footer></Footer>
+            </UserProvider>
       </body>
     </html>
   );
