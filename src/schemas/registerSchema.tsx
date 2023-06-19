@@ -8,7 +8,7 @@ export const formSchema = yup.object().shape({
   email: yup
     .string()
     .email("Deve ser um email válido")
-    .max(50)
+    .max(50, "O email deve ter no máximo 50 caracteres")
     .required("Email obrigatório"),
   cpf: yup
     .string()
