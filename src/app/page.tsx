@@ -1,5 +1,5 @@
 import Image from "next/image";
-import imageMainCar from "../../mainImageDetail.png";
+import imageMainCar from "../assets/mainImageDetail.png";
 
 export default function Home() {
   const images = [

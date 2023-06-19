@@ -26,15 +26,6 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
       <div className="min-w-[80%] max-w-[312px] max-sm:text-sm relative">
         <p
           className={
-            announcement.isActive
-              ? "bg-brand-100 text-sm text-white w-fit absolute left-2 top-2 p-1"
-              : "bg-gray-400 text-white text-sm w-fit p-1 absolute left-2 top-2"
-          }
-        >
-          {announcement.isActive ? "Ativo" : "Inativo"}
-        </p>
-        <p
-          className={
             isSellProfitable
               ? "bg-random-700 text-sm rounded-sm p-1 w-fit absolute right-1 top-1 text-white"
               : ""
