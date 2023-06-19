@@ -1,16 +1,24 @@
-import { z } from "zod";
+import * as yup from "yup";
 
-export const createAnnouncementSchema = z.object({
-  model: z.string(),
-  brand: z.string(),
-  year: z.string(),
-  fuelType: z.number(),
-  mileage: z.string(),
-  color: z.string(),
-  fipePrice: z.number(),
-  sellPrice: z.string(),
-  description: z.string(),
-  coverImage: z.string(),
+export const createAnnouncementSchema = yup.object({
+  model: yup.string(),
+  brand: yup.string(),
+  year: yup.string(),
+  fuelType: yup.number(),
+  mileage: yup.string(),
+  color: yup
+    .string()
+    .test(
+      "is-string",
+      "Insira somente caracteres",
+      (value) => typeof value === "string"
+    ),
+  fipePrice: yup.number(),
+  sellPrice: yup.string(),
+  description: yup.string(),
+  coverImage: yup.string(),
 });
 
-export type CreateAnnouncementData = z.infer<typeof createAnnouncementSchema>;
+export type CreateAnnouncementData = yup.InferType<
+  typeof createAnnouncementSchema
+>;

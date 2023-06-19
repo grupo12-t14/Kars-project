@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "../Modal/modal";
 import { carsApi, localApi } from "@/api";
 import {
@@ -156,15 +156,15 @@ export const ModalCreateAnnouncement = ({
     setValue,
     getValues,
     control,
-    formState: { errors },
-  } = useForm<CreateAnnouncementData>({
-    resolver: zodResolver(createAnnouncementSchema),
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(createAnnouncementSchema),
   });
 
   const createAnnouncement = async (data: CreateAnnouncementData) => {
     const response = await localApi.post<iAnnouncement>("/announcements", {
       ...data,
-      sellPrice: +data.sellPrice,
+      sellPrice: +data.sellPrice!,
     });
     setTimeout(() => {
       setIsCreationSucceeded(true);
@@ -265,11 +265,10 @@ export const ModalCreateAnnouncement = ({
                 placeholder="KM"
                 register={register("mileage")}
               />
+
               <Input
                 label="Cor"
                 maxLength={15}
-                pattern="[^\d]+"
-                title="Insira somente letras"
                 placeholder="Insira a Cor..."
                 register={register("color")}
               />
@@ -292,7 +291,7 @@ export const ModalCreateAnnouncement = ({
                 placeholder="R$"
                 maxLength={8}
                 register={register("sellPrice")}
-                onChange={handleMoneyChange}
+                onChange={(e) => handleMoneyChange(e)}
               />
             </div>
             <label htmlFor="description">Descrição</label>
@@ -327,10 +326,8 @@ export const ModalCreateAnnouncement = ({
                 Cancelar
               </span>
               <button
-                onClick={() => {
-                  console.log(getValues());
-                }}
-                className="bg-brand-300 p-1 px-8 rounded-sm enabled:opacity-1 disabled:opacity-75 cursor-pointer"
+                disabled={!isValid}
+                className="bg-brand-300 p-1 px-8 rounded-sm enabled:opacity-1 disabled:opacity-50 cursor-pointer"
                 type="submit"
               >
                 Criar Anúncio
