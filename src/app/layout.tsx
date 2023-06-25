@@ -5,6 +5,7 @@ import ThemeSwitcher from "@/components/darkMode/DarkMode";
 import { UserProvider } from "../contexts/contexts";
 import { Navbar } from "@/components/navBar";
 import { Footer } from "@/components/footer";
+import { AnnouncementProvider } from "./contexts/announcement";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className="text-black bg-white">
         <UserProvider>
-            <ThemeSwitcher />
+          <ThemeSwitcher />
+          <AnnouncementProvider>
             <Navbar></Navbar>
             {children}
             <Footer></Footer>
-            </UserProvider>
+          </AnnouncementProvider>
+        </UserProvider>
       </body>
     </html>
   );

@@ -48,7 +48,7 @@ export const UserProvider = ({ children }: any) => {
         registerSuccess,
         setRegisterSuccess,
         router,
-        token
+        token,
       }}
     >
       {children}
