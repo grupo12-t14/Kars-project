@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const ediInfoUserSchema = yup.object({
+export const ediInfoUserSchema = yup.object().shape({
   name: yup.string().max(50, "O nome deve conter menos de 50 caracteres"),
   email: yup
     .string()

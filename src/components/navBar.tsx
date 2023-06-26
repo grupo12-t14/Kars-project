@@ -1,5 +1,5 @@
 "use client";
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { ModalEditAddress } from "./modalEditAddresUser";
 import { ModalEditInfoUser } from "./modalEditInfoUser";
 interface User {
@@ -25,16 +25,12 @@ export const Navbar = () => {
       <p className="text-lg bg-clip-text text-transparent w-fit font-bold bg-gradient-to-r from-black to-brand-100">
         Motors <span className="text-xs">shop</span>
       </p>
-      {
-        isOpenEditAdress && (
-          <ModalEditAddress toggleModal={toggleModalEditAddres}/>
-        )
-      }
-      {
-        isOpenEditInfos && (
-          <ModalEditInfoUser toggleModal={toggleModalEditInfos}/>
-        )
-      } 
+      {isOpenEditAdress && (
+        <ModalEditAddress toggleModal={toggleModalEditAddres} />
+      )}
+      {isOpenEditInfos && (
+        <ModalEditInfoUser toggleModal={toggleModalEditInfos} />
+      )}
       {!user ? (
         <div className=" text-sm border-l-2 border-l-gray-600  font-semibold h-full flex pl-5 place-items-center relative">
           <div className="hidden sm:flex place-items-center gap-5">

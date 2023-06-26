@@ -3,30 +3,40 @@ import { Modal } from "./Modal/modal";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ediInfoUserSchema } from "@/schemas/editUserSchema";
 import { IFormUpdateInfoUser } from "@/types/types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/contexts/contexts";
-
 
 interface ModalEditAddresProps {
   toggleModal: () => void;
 }
 
 export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
+  const [modalDeleteMessage, setModalDeleteMessage] = useState(false);
+
+  const toggleModalDelete = () => {
+    setModalDeleteMessage(!modalDeleteMessage);
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<IFormUpdateInfoUser | any>({
     resolver: yupResolver(ediInfoUserSchema),
   });
 
-  const { updateInfoUser }: any = useContext(UserContext);
+  const { updateInfoUser, deleteUser }: any = useContext(UserContext);
 
-  const submit: SubmitHandler<IFormUpdateInfoUser | any> = async (formData) => {
-    await updateInfoUser(formData)
-    reset()
-  }
+  const submit: SubmitHandler<IFormUpdateInfoUser> = async (formData) => {
+    await updateInfoUser(formData);
+    reset();
+  };
+
+  const handleDeleteProfile = () => {
+    deleteUser()
+    toggleModalDelete();
+  };
 
   return (
     <>
@@ -104,9 +114,11 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 Cancelar
               </button>
               <button
-                className="bg-feedback-alert text-gray-700 hover:bg-brand-300 p-[15px] rounded"
-                type="submit"
-              >Excluir</button>
+                className="bg-red-200 text-red-700 hover:bg-red-500 md:text-gray-700 p-[8px]  rounded"
+                onClick={toggleModalDelete}
+              >
+                Excluir Perfil
+              </button>
               <button
                 className="bg-brand-100 text-gray-700 hover:bg-brand-300 p-[15px] rounded"
                 type="submit"
@@ -117,6 +129,28 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
           </form>
         </div>
       </Modal>
+      {modalDeleteMessage && (
+        <Modal toggleModal={toggleModalDelete}>
+          <div>
+            <h2>Excluir Perfil</h2>
+            <p>Tem certeza que deseja excluir o perfil?</p>
+            <div className="flex justify-center gap-5 mt-6">
+              <button
+                className="bg-gray-600 text-gray-200 p-[15px] text-center align-middle rounded"
+                onClick={toggleModalDelete}
+              >
+                Cancelar
+              </button>
+              <button
+                className="bg-red-200 text-red-700 hover:bg-red-500 md:text-gray-700 p-[8px]  rounded"
+                onClick={handleDeleteProfile}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

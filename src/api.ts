@@ -6,7 +6,7 @@ const carsApi = axios.create({
 });
 
 const localApi = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "http://localhost:3001/",
   timeout: 5000,
 });
 

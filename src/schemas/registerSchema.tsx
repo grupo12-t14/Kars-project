@@ -14,11 +14,11 @@ export const formSchema = yup.object().shape({
     .string()
     .max(14, "O CPF deve conter menos de 14 caracteres")
     .required("CPF obrigatório"),
-  phone: yup
+  telephone: yup
     .string()
     .max(15, "O telefone deve conter menos de 15 caracteres")
     .required("Telefone obrigatório"),
-  birthDate: yup.date().required("Data de nascimento obrigatório"),
+  birthdate: yup.string().required("Data de nascimento obrigatório"),
   description: yup
     .string()
     .max(250, "A descrição deve conter menos de 250 caracteres"),
@@ -33,7 +33,7 @@ export const formSchema = yup.object().shape({
   complement: yup
     .string()
     .max(50, "O complemento deve conter menos de 50 caracteres"),
-  accType: yup
+  accountType: yup
     .string()
     .min(5, "O tipo de conta deve ser buyer ou seller")
     .max(6, "O tipo de conta deve ser buyer ou seller")

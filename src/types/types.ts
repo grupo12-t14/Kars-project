@@ -20,8 +20,8 @@ export interface iRegisterForm {
   name: string;
   email: string;
   cpf: string;
-  phone: string;
-  birthDate: Date;
+  telephone: string;
+  birthDate: string;
   description: string;
   cep: string;
   state: string;
@@ -29,7 +29,7 @@ export interface iRegisterForm {
   street: string;
   number: string;
   complement: string;
-  accType: string;
+  accountType: string;
   password: string;
   confirmPassword: string;
 }
@@ -46,7 +46,7 @@ export interface IFormUpdateCep {
 export interface IFormUpdateInfoUser {
   nome?: string;
   email?: string;
-  phone?: string;
+  telephone?: string;
   birthDate?: string;
   description?: string;
   cpf?: string;

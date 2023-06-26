@@ -73,7 +73,7 @@ const Register: NextPage = () => {
     setValue,
     setFocus,
     formState: { errors },
-  } = useForm<iRegisterForm>({
+  } = useForm({
     resolver: yupResolver(formSchema),
   });
 
@@ -155,18 +155,18 @@ const Register: NextPage = () => {
               value={phoneNumber}
               maxlength={15}
               onInput={handlePhoneChange}
-              register={register("phone")}
+              register={register("telephone")}
             />
-            {errors.phone?.message && (
+            {errors.telephone?.message && (
               <span className="text-feedBack-alert-100 text-[14px] my-[-25px]">
-                {errors.phone.message}
+                {errors.telephone.message}
               </span>
             )}
             <InputContainer
               label="Data de nascimento"
               placeholder="00/00/00"
               type="date"
-              register={register("birthDate")}
+              register={register("birthdate")}
             />
             {/* {errors.birthDate?.message && (
               <span className="text-feedBack-alert-100 text-[14px] my-[-25px]">
