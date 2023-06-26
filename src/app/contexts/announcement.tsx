@@ -17,13 +17,13 @@ interface Props {
   children: ReactNode;
 }
 export interface iFilterOptions {
-  brand?: string[];
-  model?: string[];
-  color?: string[];
-  fuelType?: string[];
-  mileage?: string[];
-  year?: string[];
-  sellPrice?: string[];
+  brand: string[];
+  model: string[];
+  color: string[];
+  fuelType: string[];
+  mileage: string[];
+  year: string[];
+  sellPrice: string[];
 }
 
 export interface announcementProviderData {
@@ -40,6 +40,9 @@ export interface announcementProviderData {
   setQueryParamsString: Dispatch<SetStateAction<string>>;
   filterOptions: iFilterOptions | [];
   getFilterOptionsFromDistinctRoute: () => void;
+  retriveSellerAnnouncements: (userId: string) => Promise<void>;
+  sellerAnnouncements: iAnnouncement[];
+  setSellerAnnouncements: Dispatch<SetStateAction<iAnnouncement[]>>;
 }
 
 export const AnnouncementContext = createContext<announcementProviderData>(
@@ -56,17 +59,18 @@ export const AnnouncementProvider = ({ children }: Props) => {
   >([]);
   const [queryParamsString, setQueryParamsString] = useState<string>("");
   const [filterOptions, setFilterOptions] = useState<iFilterOptions | []>([]);
+  const [sellerAnnouncements, setSellerAnnouncements] = useState<
+    iAnnouncement[]
+  >([]);
   const getAnnouncementsRequest = async () => {
     try {
       setIsLoading(true);
       const response = await api.get(`announcements/?${queryParamsString}`, {});
-      console.log(response.data, queryParamsString);
       const paginatedResponse = await api.get(
         "http://localhost:3000/announcements/?page=1&perPage=12"
       );
       setPaginatedAnnouncements(paginatedResponse.data);
       setGetAnnouncements(response.data);
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -79,13 +83,29 @@ export const AnnouncementProvider = ({ children }: Props) => {
     try {
       setIsLoading(true);
       const response = await api.get("announcements/distinct");
-      console.log(response.data);
-      setFilterOptions(response.data);
+      setFilterOptions(response.data[0]);
     } catch (err) {
       console.error(err);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   };
 
+  const retriveSellerAnnouncements = async (userId: string) => {
+    try {
+      setIsLoading(true);
+      const response = await api.get(`/announcements/user/${userId}`);
+      setSellerAnnouncements(response.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 1500);
+    }
+  };
   return (
     <AnnouncementContext.Provider
       value={{
@@ -100,6 +120,9 @@ export const AnnouncementProvider = ({ children }: Props) => {
         setQueryParamsString,
         getFilterOptionsFromDistinctRoute,
         filterOptions,
+        retriveSellerAnnouncements,
+        sellerAnnouncements,
+        setSellerAnnouncements,
       }}
     >
       {children}

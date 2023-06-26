@@ -1,22 +1,43 @@
-import { iPaginatedAnnouncementResults } from "@/app/dashboard/page";
-import { iAnnouncement } from "@/app/profile/page";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useAnnouncementContext } from "@/app/contexts/announcement";
+import {
+  iFilterOptions,
+  useAnnouncementContext,
+} from "@/app/contexts/announcement";
 
 export const KmAndPriceContainer = ({ title }: any) => {
+  const [inputValue, setInputValue] = useState(0);
+  let auxNumber: number = 0;
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {};
   return (
     <div className="flex flex-col gap-2 font-semibold">
       <h2 className="text-typography-20">{title}</h2>
-      <div className="w-full flex gap-2">
-        <button className="bg-gray-500 text-gray-300 px-5 py-1">Mínima</button>
-        <button className="bg-gray-500 text-gray-300 px-5 py-1">Máxima</button>
+      <div className="flex">
+        <div className="flex flex-col">
+          <label htmlFor="MileageRange">Min</label>
+          <input
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+            type="text"
+            pattern="\d*"
+            maxLength={6}
+            className="bg-gray-500 text-gray-300 pl-2 py-1 w-[90%]"
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="PriceRange">Max</label>
+          <input
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+            type="text"
+            pattern="\d*"
+            maxLength={6}
+            className="bg-gray-500 text-gray-300 pl-2 py-1 w-[90%]"
+          />
+        </div>
       </div>
     </div>
   );
@@ -25,15 +46,18 @@ interface iFilterProps {
   title: string;
   key: number;
 }
-
 export const FilterContainer = ({ title, key }: iFilterProps) => {
-  const router = useRouter();
   const { setQueryParamsString, isLoading, filterOptions } =
     useAnnouncementContext();
+  const options = filterOptions as iFilterOptions;
 
   const FilterOption = ({ option, context }: any) => {
+    const { setQueryParamsString, isLoading, filterOptions } =
+      useAnnouncementContext();
     let pathname = usePathname();
     let searchParams: any = useSearchParams();
+    const router = useRouter();
+
     const createQueryString = useCallback(
       (name: string, value: string) => {
         const params = new URLSearchParams(searchParams);
@@ -44,7 +68,7 @@ export const FilterContainer = ({ title, key }: iFilterProps) => {
       [searchParams]
     );
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       if (context === "fuelType") {
         let newFuel;
         option == "Gasolina"
@@ -52,17 +76,19 @@ export const FilterContainer = ({ title, key }: iFilterProps) => {
           : option == "Etanol"
           ? (newFuel = "2")
           : (newFuel = "3");
-        e.target.value &&
-          router.push(pathname + "?" + createQueryString(context, newFuel));
+        router.push(pathname + "?" + createQueryString(context, newFuel));
       } else {
-        e.target.value &&
-          router.push(pathname + "?" + createQueryString(context, option));
+        router.push(pathname + "?" + createQueryString(context, option));
       }
+      return e.target.checked;
     };
     return (
       <div className="flex items-center gap-1">
         <input
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => {
+            const isChecked = handleChange(e);
+            e.target.checked = isChecked;
+          }}
           className="cursor-pointer"
           type="checkbox"
         />
@@ -72,123 +98,60 @@ export const FilterContainer = ({ title, key }: iFilterProps) => {
       </div>
     );
   };
-
-  let brandOptions = [
-    "General Motors",
-    "Fiat",
-    "Honda",
-    "Porsche",
-    "Volswagen",
-  ];
-  let brands: any = [];
-  // if (announcementResults) {
-  //   announcementResults.forEach((elem) => {
-  //     if (!brands.includes(elem.brand)) {
-  //       brands.push(elem.brand);
-  //     }
-  //   });
-  // }
-  const modelOptions = [
-    "Civic",
-    "Corolla",
-    "Cruze",
-    "Fit",
-    "Gol",
-    "Ka",
-    "Onix",
-    "Porsche 718",
-  ];
-  let models: any = [];
-  // if (announcementResults) {
-  //   announcementResults.forEach((elem) => {
-  //     if (!models.includes(elem.model)) {
-  //       models.push(elem.model);
-  //     }
-  //   });
-  // }
-  const colorOptions = ["Azul", "Branco", "Cinza", "Prata", "Preto", "Verde"];
-  let colors: any = [];
-  // if (announcementResults) {
-  //   announcementResults.forEach((elem) => {
-  //     if (!colors.includes(elem.color)) {
-  //       colors.push(elem.color);
-  //     }
-  //   });
-  // }
-
-  const yearOptions = [
-    "2023",
-    "2022",
-    "2021",
-    "2020",
-    "2019",
-    "2018",
-    "2017",
-    "2016",
-    "2015",
-    "2014",
-    "2013",
-    "2012",
-    "2011",
-    "2010",
-    "2009",
-    "2008",
-    "2007",
-  ];
-
-  let years: any = [];
-  // if (announcementResults) {
-  //   announcementResults.forEach((elem) => {
-  //     if (!years.includes(elem.year)) {
-  //       years.push(elem.year);
-  //     }
-  //   });
-  // }
   const fuelOptions = ["Gasolina", "Etanol", "Flex"];
   return (
     <>
-      {console.log(filterOptions)}
-      {!isLoading && (
-        <div className="flex flex-col">
-          <h2 className="font-semibold text-typography-20">{title}</h2>
-          <div className="flex flex-col font-semibold text-slate-500">
-            {title === "Marca" &&
-              brands.map((elem: any, index: any) => {
-                return (
-                  <FilterOption context={"brand"} key={index} option={elem} />
-                );
-              })}
-            {title === "Modelo" &&
-              models.map((elem: any, index: any) => {
-                return (
-                  <FilterOption context={"model"} key={index} option={elem} />
-                );
-              })}
-            {title === "Cor" &&
-              colors.map((elem: any, index: any) => {
-                return (
-                  <FilterOption context={"color"} key={index} option={elem} />
-                );
-              })}
-            {title === "Ano" &&
-              years.map((elem: any, index: any) => {
-                return (
-                  <FilterOption context={"year"} key={index} option={elem} />
-                );
-              })}
-            {title === "Combustível" &&
-              fuelOptions.map((elem: any, index: any) => {
-                return (
-                  <FilterOption
-                    context={"fuelType"}
-                    key={index}
-                    option={elem}
-                  />
-                );
-              })}
-          </div>
+      <div className="flex flex-col">
+        <h2 className="font-semibold text-typography-20">{title}</h2>
+        <div className="flex flex-col font-semibold text-slate-500">
+          {options && (
+            <>
+              {title === "Marca" &&
+                options &&
+                options.brand &&
+                options.brand.map((elem: any, index: any) => {
+                  return (
+                    <FilterOption context={"brand"} key={index} option={elem} />
+                  );
+                })}
+              {title === "Modelo" &&
+                options &&
+                options.model &&
+                options.model.map((elem: any, index: any) => {
+                  return (
+                    <FilterOption context={"model"} key={index} option={elem} />
+                  );
+                })}
+              {title === "Cor" &&
+                options &&
+                options.color &&
+                options.color.map((elem: any, index: any) => {
+                  return (
+                    <FilterOption context={"color"} key={index} option={elem} />
+                  );
+                })}
+              {title === "Ano" &&
+                options &&
+                options.year &&
+                options.year.map((elem: any, index: any) => {
+                  return (
+                    <FilterOption context={"year"} key={index} option={elem} />
+                  );
+                })}
+              {title === "Combustível" &&
+                fuelOptions.map((elem: any, index: any) => {
+                  return (
+                    <FilterOption
+                      context={"fuelType"}
+                      key={index}
+                      option={elem}
+                    />
+                  );
+                })}
+            </>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 };

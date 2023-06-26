@@ -10,14 +10,11 @@ export const UserProvider = ({ children }: any) => {
   const router = useRouter();
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const token = localStorage.getItem("@TOKEN");
-
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
       try {
-        console.log(data);
         const response = await api.post("register", data);
         response.status === 201 && setRegisterSuccess(true);
-        console.log(response);
         setRegisterSuccess(true);
       } catch (error) {
         console.log(error);

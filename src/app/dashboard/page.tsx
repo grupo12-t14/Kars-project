@@ -10,7 +10,8 @@ import ProductCard from "@/components/productCard";
 import { useEffect, useState } from "react";
 import { iAnnouncement } from "../profile/page";
 import { useAnnouncementContext } from "../contexts/announcement";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export interface iPaginatedAnnouncementResults {
   prevPage: string | null;
@@ -56,11 +57,14 @@ const Home: NextPage = () => {
     setPaginatedAnnouncements,
     getAnnouncementsRequest,
     queryParamsString,
+    setQueryParamsString,
     getFilterOptionsFromDistinctRoute,
   }: any = useAnnouncementContext();
-  const router = useParams();
-  console.log(router);
 
+  const router = useRouter();
+  const handleResetFilters = () => {
+    router.push("");
+  };
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
     getFilterOptionsFromDistinctRoute();
@@ -68,7 +72,6 @@ const Home: NextPage = () => {
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
   }, [queryParamsString]);
-
   const params = useParams();
   const filterOptions = ["Marca", "Modelo", "Cor", "Ano", "Combustível"];
 
@@ -86,26 +89,12 @@ const Home: NextPage = () => {
               </button>
             </div>
             <div className="w-[98%] h-full overflow-y-scroll px-3 scroll-smooth">
-              {/* <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Marca"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Modelo"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Cor"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Ano"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Combustível"
-            /> */}
+              <>
+                {filterOptions &&
+                  filterOptions.map((e, i) => {
+                    return <FilterContainer key={i} title={e} />;
+                  })}
+              </>
               <KmAndPriceContainer title="Km" />
               <KmAndPriceContainer title="Preço" />
             </div>
@@ -114,7 +103,6 @@ const Home: NextPage = () => {
             </div>
           </div>
         )}
-
         <main className="flex flex-col w-full">
           <div className="flex justify-center items-end">
             <div className="w-full h-fit relative">
@@ -155,35 +143,9 @@ const Home: NextPage = () => {
               <>
                 {filterOptions &&
                   filterOptions.map((e, i) => {
-                    return (
-                      <FilterContainer
-                        key={i}
-                        title={e}
-                      />
-                    );
+                    return <FilterContainer key={i} title={e} />;
                   })}
               </>
-
-              {/* <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Marca"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Modelo"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Cor"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Ano"
-            />
-            <FilterContainer
-              announcementResults={getAnnouncementsRequest}
-              title="Combustível"
-            /> */}
               <KmAndPriceContainer title="Km" />
               <KmAndPriceContainer title="Preço" />
             </aside>
@@ -192,18 +154,26 @@ const Home: NextPage = () => {
               <LoadingSpinner />
             ) : (
               <ul className="w-full flex overflow-x-scroll sm:overflow-x-hidden my-2 py-4 sm:w-4/5 sm:grid md:grid-cols-3 sm:grid-cols-2 gap-5 h-fit scroll-smooth">
-                {getAnnouncements.map((e: any, index: number) => {
-                  return <ProductCard key={index} announcement={e} />;
-                })}
-                {/* {paginatedAnnouncements ? (
-                    paginatedAnnouncements.data.map((elem: any, index: any) => {
-                      return <ProductCard key={index} announcement={elem} />;
-                    })
-                  ) : (
-                    <>
-                      <div>Não foram encontrados resultados</div>
-                    </>
-                  )} */}
+                {getAnnouncements.length > 0 ? (
+                  getAnnouncements.map((elem: any, index: any) => {
+                    return <ProductCard key={index} announcement={elem} />;
+                  })
+                ) : (
+                  <>
+                    <div>
+                      Não foram encontrados resultados!{" "}
+                      <button
+                        className="bg-brand-100 p-1 text-white"
+                        onClick={() => {
+                          router.replace("dashboard");
+                          setQueryParamsString("");
+                        }}
+                      >
+                        Redefinir
+                      </button>{" "}
+                    </div>
+                  </>
+                )}
               </ul>
             )}
           </div>
@@ -226,7 +196,6 @@ const Home: NextPage = () => {
           </div>
         </main>
       </>
-      )
     </>
   );
 };
