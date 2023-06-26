@@ -33,3 +33,31 @@ export interface iRegisterForm {
   password: string;
   confirmPassword: string;
 }
+
+export interface IFormUpdateCep {
+  cep: string;
+  state: string;
+  city: string;
+  street: string;
+  number?: string;
+  complement?: string;
+}
+
+export interface IFormUpdateInfoUser {
+  nome?: string;
+  email?: string;
+  phone?: string;
+  birthDate?: string;
+  description?: string;
+  cpf?: string;
+}
+
+
+export interface IFormEmailtoResetPassword {
+  email: string;
+}
+
+export interface IFormNewPassword {
+  password: string;
+  confirmPassword: string;
+}

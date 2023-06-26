@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="text-black bg-white">
         <UserProvider>
-            <ThemeSwitcher />
-            <Navbar></Navbar>
-            {children}
-            <Footer></Footer>
-            </UserProvider>
+          <ThemeSwitcher />
+          <Navbar></Navbar>
+          {children}
+          <Footer></Footer>
+        </UserProvider>
       </body>
     </html>
   );

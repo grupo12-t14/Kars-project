@@ -1,6 +1,11 @@
 "use client";
 import { api } from "@/services/services";
-import { iLoginForm, iRegisterForm } from "@/types/types";
+import {
+  IFormUpdateCep,
+  IFormUpdateInfoUser,
+  iLoginForm,
+  iRegisterForm,
+} from "@/types/types";
 import { createContext, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -40,6 +45,18 @@ export const UserProvider = ({ children }: any) => {
     fetchData();
   };
 
+  const updateInfoUser = async (data: IFormUpdateInfoUser) => {
+    try {
+      await api.patch("users", data);
+    } catch (error) {}
+  };
+
+  const updateCepUser = async (data: IFormUpdateCep) => {
+    try {
+      await api.patch("users", data);
+    } catch (error) {}
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -48,7 +65,9 @@ export const UserProvider = ({ children }: any) => {
         registerSuccess,
         setRegisterSuccess,
         router,
-        token
+        token,
+        updateInfoUser,
+        updateCepUser,
       }}
     >
       {children}

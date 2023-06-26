@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React,{ useState } from "react";
+import { ModalEditAddress } from "./modalEditAddresUser";
+import { ModalEditInfoUser } from "./modalEditInfoUser";
 interface User {
   name: string;
   accountType: string;
@@ -12,13 +14,27 @@ export const Navbar = () => {
   // const user: any = false;
   const [profileDisplay, setProfileDisplay] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isOpenEditAdress, setIsOpenEditAdress] = useState(false);
+  const [isOpenEditInfos, setIsOpenEditInfos] = useState(false);
+
+  const toggleModalEditAddres = () => setIsOpenEditAdress(!isOpenEditAdress);
+  const toggleModalEditInfos = () => setIsOpenEditInfos(!isOpenEditInfos);
 
   return (
     <header className="w-full flex justify-between border-b-2 border-b-gray-600 place-items-center  h-16 md:px-12 mx-auto">
       <p className="text-lg bg-clip-text text-transparent w-fit font-bold bg-gradient-to-r from-black to-brand-100">
         Motors <span className="text-xs">shop</span>
       </p>
-
+      {
+        isOpenEditAdress && (
+          <ModalEditAddress toggleModal={toggleModalEditAddres}/>
+        )
+      }
+      {
+        isOpenEditInfos && (
+          <ModalEditInfoUser toggleModal={toggleModalEditInfos}/>
+        )
+      } 
       {!user ? (
         <div className=" text-sm border-l-2 border-l-gray-600  font-semibold h-full flex pl-5 place-items-center relative">
           <div className="hidden sm:flex place-items-center gap-5">
@@ -107,8 +123,8 @@ export const Navbar = () => {
                   : "hidden"
               }
             >
-              <button>Editar Perfil</button>
-              <button>Editar Endereço</button>
+              <button onClick={toggleModalEditInfos}>Editar Perfil</button>
+              <button onClick={toggleModalEditAddres}>Editar Endereço</button>
               {user?.accountType == "seller" && <button>Meus Anúncios</button>}
               <button>Sair</button>
             </div>
