@@ -14,6 +14,9 @@ export const UserProvider = ({ children }: any) => {
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
       try {
+        data.cep = data.cep.replace(/\D/g, "");
+        data.cpf = data.cpf.replace(/\D/g, "");
+        data.phone = data.phone.replace(/\D/g, "");
         console.log(data);
         const response = await api.post("register", data);
         response.status === 201 && setRegisterSuccess(true);
@@ -48,7 +51,7 @@ export const UserProvider = ({ children }: any) => {
         registerSuccess,
         setRegisterSuccess,
         router,
-        token
+        token,
       }}
     >
       {children}
