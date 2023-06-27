@@ -2,23 +2,38 @@ import Image from "next/image";
 import carro from "../../assets/car.webp";
 import { iAnnouncement } from "../../app/profile/page";
 
+const VisitorUser = {
+  id: "3",
+  name: "",
+  accountType: "",
+};
+
+const OwnerUser = {
+  id: "12",
+  name: "",
+  accountType: "",
+};
 export const AnnouncementCard = ({
   element,
 }: {
   element: iAnnouncement;
 }): JSX.Element => {
+  const check = OwnerUser.id === VisitorUser.id;
   const sellValueNumber: number = parseInt(element.sellPrice);
   return (
     <li className="flex flex-col gap-3 max-w-[250px] relative flex-shrink-0 ">
-      <p
-        className={
-          element.isActive
-            ? "bg-brand-100 text-sm text-white rounded-md w-fit absolute left-2 top-2 p-1"
-            : "bg-gray-400 text-sm text-white rounded-md w-fit p-1 absolute left-2 top-2"
-        }
-      >
-        {element.isActive ? "Ativo" : "Inativo"}
-      </p>
+      {check && (
+        <p
+          className={
+            element.isActive
+              ? "bg-brand-100 text-sm text-white rounded-md w-fit absolute left-2 top-2 p-1"
+              : "bg-gray-400 text-sm text-white rounded-md w-fit p-1 absolute left-2 top-2"
+          }
+        >
+          {element.isActive ? "Ativo" : "Inativo"}
+        </p>
+      )}
+
       <Image
         className="object-cover"
         src={carro}
@@ -44,14 +59,16 @@ export const AnnouncementCard = ({
           })}`}
         </span>
       </div>
-      <div className="mt-2 flex gap-3">
-        <button className="border-[2px] rounded-md h-fit p-1 px-2">
-          Editar
-        </button>
-        <button className="border-[2px] rounded-md h-fit w-[120px] p-1">
-          Ver detalhes
-        </button>
-      </div>
+      {check && (
+        <div className="mt-2 flex gap-3">
+          <button className="border-[2px] rounded-md h-fit p-1 px-2">
+            Editar
+          </button>
+          <button className="border-[2px] rounded-md h-fit w-[120px] p-1">
+            Ver detalhes
+          </button>
+        </div>
+      )}
     </li>
   );
 };
