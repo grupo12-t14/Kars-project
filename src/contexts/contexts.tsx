@@ -16,7 +16,6 @@ export const UserProvider = ({ children }: any) => {
   const router = useRouter();
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const token = localStorage.getItem("@TOKEN");
-  const [tokenRecover, setRecover] = useState("");
   const tokenString = token + '';
   const decodedToken = jwt.decode(tokenString);
 
@@ -78,16 +77,13 @@ export const UserProvider = ({ children }: any) => {
   const forgotPassword = async (data: IFormUpdateInfoUser) => {
     try {
       const response = await api.patch("recovery", data);
-      setRecover(response.data.token);
     } catch (error) {}
   };
 
-  const resetPassword = async (data: IFormUpdateInfoUser) => {
+  const resetPassword = async (data: IFormUpdateInfoUser, id: string) => {
     try {
-      await api.put(`reset/${tokenRecover}`, data);
+      await api.patch(`reset/${id}`, data);
     } catch (error) {
-    } finally {
-      setRecover("");
     }
   };
 

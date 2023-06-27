@@ -58,7 +58,7 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 className="h-[48px] rounded border-gray-300 border-[2px]"
                 {...register("name")}
               />
-              {errors.name && (
+              {errors.name?.message && (
                 <span className="text-red-500">{errors.name.message}</span>
               )}
             </fieldset>
