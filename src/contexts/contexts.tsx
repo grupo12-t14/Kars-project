@@ -1,9 +1,8 @@
 "use client";
-import { api } from "@/services/services";
 import { iLoginForm, iRegisterForm } from "@/types/types";
 import { createContext, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { localApi } from "@/api";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }: any) => {
@@ -16,7 +15,7 @@ export const UserProvider = ({ children }: any) => {
         data.cep = data.cep.replace(/\D/g, "");
         data.cpf = data.cpf.replace(/\D/g, "");
         data.phone = data.phone.replace(/\D/g, "");
-        const response = await api.post("register", data);
+        const response = await localApi.post("register", data);
         response.status === 201 && setRegisterSuccess(true);
         setRegisterSuccess(true);
       } catch (error) {
@@ -29,7 +28,7 @@ export const UserProvider = ({ children }: any) => {
   const getLoginData = (data: iLoginForm) => {
     async function fetchData() {
       try {
-        const response = await api.post("login", data);
+        const response = await localApi.post("login", data);
         response.status === 200 &&
           router.push(`dashboard/${response.data.user.name}`);
         localStorage.setItem("@TOKEN", response.data.accessToken);
