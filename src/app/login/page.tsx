@@ -52,7 +52,7 @@ const Login: NextPage = () => {
             </span>
           )}
           <div className="flex justify-end items-center w-full font-semibold">
-            <Link href={""}>Esqueci minha senha</Link>
+            <Link href={"/recoverPassword"}>Esqueci minha senha</Link>
           </div>
           <button
             type="submit"

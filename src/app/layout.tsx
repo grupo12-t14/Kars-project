@@ -23,7 +23,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="text-black bg-white">
         <UserProvider>
-          <ThemeSwitcher />
           <AnnouncementProvider>
             <Navbar></Navbar>
             {children}
