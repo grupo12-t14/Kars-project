@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import Providers from "./providers";
 import ThemeSwitcher from "@/components/darkMode/DarkMode";
 import { UserProvider } from "../contexts/contexts";
+import { Navbar } from "@/components/navBar";
+import { Footer } from "@/components/footer";
+import { AnnouncementProvider } from "./contexts/announcement";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +22,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="text-black bg-white">
-        <Providers>
-          <UserProvider>
-            <ThemeSwitcher />
+        <UserProvider>
+          <ThemeSwitcher />
+          <AnnouncementProvider>
+            <Navbar></Navbar>
             {children}
-          </UserProvider>
-        </Providers>
+            <Footer></Footer>
+          </AnnouncementProvider>
+        </UserProvider>
       </body>
     </html>
   );
