@@ -11,6 +11,10 @@ export interface iInputForm {
   onInput?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface iCommentForm {
+  comment: string;
+}
+
 export interface iLoginForm {
   email: string;
   password: string;

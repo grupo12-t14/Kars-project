@@ -11,7 +11,7 @@ import {
 } from "react";
 import { iAnnouncement } from "../profile/page";
 import { iPaginatedAnnouncementResults } from "../dashboard/page";
-import { api } from "@/services/services";
+import { localApi } from "../../api";
 
 interface Props {
   children: ReactNode;
@@ -65,8 +65,11 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const getAnnouncementsRequest = async () => {
     try {
       setIsLoading(true);
-      const response = await api.get(`announcements/?${queryParamsString}`, {});
-      const paginatedResponse = await api.get(
+      const response = await localApi.get(
+        `announcements/?${queryParamsString}`,
+        {}
+      );
+      const paginatedResponse = await localApi.get(
         "http://localhost:3000/announcements/?page=1&perPage=12"
       );
       setPaginatedAnnouncements(paginatedResponse.data);
@@ -82,7 +85,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const getFilterOptionsFromDistinctRoute = async () => {
     try {
       setIsLoading(true);
-      const response = await api.get("announcements/distinct");
+      const response = await localApi.get("announcements/distinct");
       setFilterOptions(response.data[0]);
     } catch (err) {
       console.error(err);
@@ -96,7 +99,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const retriveSellerAnnouncements = async (userId: string) => {
     try {
       setIsLoading(true);
-      const response = await api.get(`/announcements/user/${userId}`);
+      const response = await localApi.get(`/announcements/user/${userId}`);
       setSellerAnnouncements(response.data);
     } catch (err) {
       console.error(err);

@@ -1,8 +1,5 @@
 "use client";
-import { Footer } from "@/components/footer";
 import { InputContainer } from "@/components/formInput";
-import { Navbar } from "@/components/navBar";
-import { iRegisterForm } from "@/types/types";
 import { NextPage } from "next";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -12,8 +9,13 @@ import { UserContext } from "../../contexts/contexts";
 import { FormComponent } from "@/components/formComponent";
 
 const Register: NextPage = () => {
-  const { getRegisterData, registerSuccess, setRegisterSuccess, router, token }: any =
-    useContext(UserContext);
+  const {
+    getRegisterData,
+    registerSuccess,
+    setRegisterSuccess,
+    router,
+    token,
+  }: any = useContext(UserContext);
   token && localStorage.removeItem("@TOKEN");
 
   const [activeButton, setActiveButton] = useState("buyer");
@@ -107,7 +109,6 @@ const Register: NextPage = () => {
         </div>
       )}
       <main className="flex flex-col w-full bg-gray-800">
-        <Navbar />
         <div className="flex items-center justify-center py-9">
           <FormComponent handleSubmit={handleSubmit} formData={getRegisterData}>
             <h1 className="font-semibold text-typography-25">Cadastro</h1>
@@ -187,7 +188,7 @@ const Register: NextPage = () => {
             <p className="font-bold text-[18px]">Informações de endereço</p>
             <InputContainer
               label="CEP"
-              placeholder="00000.000"
+              placeholder="00000-000"
               type="input"
               register={register("cep")}
               onBlur={checkCEP}
@@ -335,7 +336,6 @@ const Register: NextPage = () => {
             </button>
           </FormComponent>
         </div>
-        <Footer />
       </main>
     </>
   );
