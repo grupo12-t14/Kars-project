@@ -10,8 +10,7 @@ import ProductCard from "@/components/productCard";
 import { useEffect, useState } from "react";
 import { iAnnouncement } from "../profile/page";
 import { useAnnouncementContext } from "../contexts/announcement";
-import { useParams, usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 
 export interface iPaginatedAnnouncementResults {
   prevPage: string | null;
@@ -50,11 +49,7 @@ const Home: NextPage = () => {
   const [filters, setFilters] = useState(false);
   const {
     isLoading,
-    setIsLoading,
     getAnnouncements,
-    setGetAnnouncements,
-    paginatedAnnouncements,
-    setPaginatedAnnouncements,
     getAnnouncementsRequest,
     queryParamsString,
     setQueryParamsString,
@@ -62,17 +57,13 @@ const Home: NextPage = () => {
   }: any = useAnnouncementContext();
 
   const router = useRouter();
-  const handleResetFilters = () => {
-    router.push("");
-  };
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
     getFilterOptionsFromDistinctRoute();
-  }, []);
+  }, [getAnnouncementsRequest, getFilterOptionsFromDistinctRoute, queryParamsString]);
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
-  }, [queryParamsString]);
-  const params = useParams();
+  }, [getAnnouncementsRequest, queryParamsString]);
   const filterOptions = ["Marca", "Modelo", "Cor", "Ano", "Combustível"];
 
   return (

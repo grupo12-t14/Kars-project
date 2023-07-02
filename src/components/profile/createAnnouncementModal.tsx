@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "../Modal/modal";
@@ -11,7 +11,6 @@ import { iAnnouncement, iCarFromApi } from "@/app/profile/page";
 import { Input } from "./input";
 import Select from "react-select";
 import { AxiosResponse } from "axios";
-import { boolean } from "zod";
 
 interface CreateAnnouncementProps {
   toggleModal: () => void;

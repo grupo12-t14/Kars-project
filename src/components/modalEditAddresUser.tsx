@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { Modal } from "./Modal/modal";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -77,7 +76,7 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
               />
             </fieldset>
               {errors.cep?.message && (
-                <span className="text-red-500">{errors.cep?.message}</span>
+                <span className="text-red-500">{errors.cep.message}</span>
               )}
             <div className="flex w-full justify-between">
               <fieldset className="flex flex-col w-[47%] gap-1">

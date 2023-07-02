@@ -6,7 +6,6 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { iAnnouncement } from "../profile/page";
