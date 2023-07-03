@@ -1,8 +1,6 @@
 "use client";
-import { Footer } from "@/components/footer";
 import { FormComponent } from "@/components/formComponent";
 import { InputContainer } from "@/components/formInput";
-import { Navbar } from "@/components/navBar";
 import { UserContext } from "@/contexts/contexts";
 import { formSchema } from "@/schemas/loginSchema";
 import { iLoginForm } from "@/types/types";
@@ -25,7 +23,6 @@ const Login: NextPage = () => {
   });
   return (
     <main className="flex flex-col justify-between h-screen w-full bg-gray-800">
-      <Navbar />
       <div className="flex items-center h-full justify-center">
         <FormComponent handleSubmit={handleSubmit} formData={getLoginData}>
           <h1 className="font-semibold text-typography-25">Login</h1>
@@ -93,7 +90,6 @@ const Login: NextPage = () => {
           </Link>
         </FormComponent>
       </div>
-      <Footer />
     </main>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
-import { api } from "@/services/services";
 import {
   IFormUpdateCep,
   IFormUpdateInfoUser,
+  iCommentForm,
   iLoginForm,
   iRegisterForm,
 } from "@/types/types";
@@ -26,9 +26,8 @@ export const UserProvider = ({ children }: any) => {
         data.cep = data.cep.replace(/\D/g, "");
         data.cpf = data.cpf.replace(/\D/g, "");
         data.telephone = data.telephone.replace(/\D/g, "");
-        const response = await localApi.post("register", data);
-
-        response.status === 201 && setRegisterSuccess(true);
+        const response = await localApi.post("users/", data);
+        console.log(response);
         setRegisterSuccess(true);
       } catch (error) {
         console.log(error);
@@ -50,14 +49,14 @@ export const UserProvider = ({ children }: any) => {
   };
   const updateInfoUser = async (data: IFormUpdateInfoUser) => {
     try {
-      await api.patch(`users/${decodedToken!.sub}`, data, {
+      await localApi.patch(`users/${decodedToken!.sub}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {}
   };
   const updateCepUser = async (data: IFormUpdateCep) => {
     try {
-      await api.patch(`users/${decodedToken!.sub}`, data, {
+      await localApi.patch(`users/${decodedToken!.sub}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {}
@@ -65,7 +64,7 @@ export const UserProvider = ({ children }: any) => {
 
   const deleteUser = async () => {
     try {
-      await api.delete(`users/${decodedToken!.sub}`, {
+      await localApi.delete(`users/${decodedToken!.sub}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       router.push("/login");
@@ -75,14 +74,27 @@ export const UserProvider = ({ children }: any) => {
 
   const forgotPassword = async (data: IFormUpdateInfoUser) => {
     try {
-      const response = await api.patch("recovery", data);
+      const response = await localApi.patch("recovery", data);
     } catch (error) {}
   };
   const resetPassword = async (data: IFormUpdateInfoUser, id: string) => {
     try {
-      await api.patch(`reset/${id}`, data);
+      await localApi.patch(`reset/${id}`, data);
     } catch (error) {}
   };
+
+  const getCommentData = async (data: iCommentForm) => {
+    if (token) {
+      try {
+        //const response = await localApi.post(`${1}/comments`, data);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -97,6 +109,7 @@ export const UserProvider = ({ children }: any) => {
         forgotPassword,
         resetPassword,
         deleteUser,
+        getCommentData,
       }}
     >
       {children}
