@@ -19,7 +19,7 @@ export const UserProvider = ({ children }: any) => {
   const token = localStorage.getItem("@TOKEN");
   const tokenString = token + "";
   const decodedToken = jwt.decode(tokenString);
-
+  
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
       try {

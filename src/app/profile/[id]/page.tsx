@@ -40,8 +40,14 @@ const ProfilePerId = ({ params }: { params: { id: string } }) => {
         <section className="w-[90%] ml-8 p-6 mt-[150px] h-fit">
           <h2 className="w-fit font-bold">Anúncios</h2>
           <ul className="pl-12 flex align-middle w-full overflow-x-scroll overflow-y-hidden p gap-20 md:flex-wrap md:max-w-[95%] md:pl-4 md:mx-auto md:justify-between p-4">
-            {sellerAnnouncements.map((e, i) => (
-              <AnnouncementCard key={i} element={e}></AnnouncementCard>
+            {sellerAnnouncements.map((e, i: any) => (
+              <AnnouncementCard
+                params={params.id}
+                key={i}
+                element={e}
+                setEditModalOpen={undefined}
+                setAnnouncementId={undefined}
+              ></AnnouncementCard>
             ))}
           </ul>
         </section>
