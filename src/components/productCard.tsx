@@ -39,7 +39,7 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
             className="bg-gray-500"
             width={50}
             height={50}
-            src="https://revistacarro.com.br/wp-content/uploads/2022/06/Icona_5.jpg"
+            src={carro}
             alt="coverImage"
           />
         </div>
