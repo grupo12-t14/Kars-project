@@ -37,8 +37,6 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
         <div className="hover:border-brand-100 hover:border-2 border-2 border-transparent">
           <Image
             className="bg-gray-500"
-            width={50}
-            height={50}
             src={carro}
             alt="coverImage"
           />
