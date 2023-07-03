@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "../Modal/modal";
@@ -11,7 +11,6 @@ import { iAnnouncement, iCarFromApi } from "@/app/profile/page";
 import { Input } from "./input";
 import Select from "react-select";
 import { AxiosResponse } from "axios";
-import { boolean } from "zod";
 
 interface CreateAnnouncementProps {
   toggleModal: () => void;
@@ -25,6 +24,17 @@ interface remainingCompleteCarFields {
   fuel: number;
   fipePrice: number;
 }
+
+export const handleMoneyChange = (
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  let inputValue = event.target.value;
+  inputValue = inputValue.replace(/\D/g, "");
+  inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
+  inputValue = "R$ " + inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+  event.currentTarget.value = inputValue;
+  return event.currentTarget.value;
+};
 
 export const ModalCreateAnnouncement = ({
   toggleModal,
@@ -76,6 +86,7 @@ export const ModalCreateAnnouncement = ({
       </div>
     );
   };
+
   const availableBrands = Object.keys(availableCars);
   const handleChange = async (selectedCar: iInputOptions | null) => {
     setSelectedModel(selectedCar);
@@ -142,14 +153,6 @@ export const ModalCreateAnnouncement = ({
     }
   };
 
-  const handleMoneyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let inputValue = event.target.value;
-    inputValue = inputValue.replace(/\D/g, "");
-    inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
-    inputValue = "R$ " + inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-    event.currentTarget.value = inputValue;
-    return event;
-  };
   const {
     register,
     handleSubmit,

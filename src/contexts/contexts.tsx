@@ -1,5 +1,4 @@
 "use client";
-import { api } from "@/services/services";
 import {
   IFormUpdateCep,
   IFormUpdateInfoUser,
@@ -19,7 +18,7 @@ export const UserProvider = ({ children }: any) => {
   const token = localStorage.getItem("@TOKEN");
   const tokenString = token + "";
   const decodedToken = jwt.decode(tokenString);
-
+  
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
       try {
@@ -50,14 +49,14 @@ export const UserProvider = ({ children }: any) => {
   };
   const updateInfoUser = async (data: IFormUpdateInfoUser) => {
     try {
-      await api.patch(`users/${decodedToken!.sub}`, data, {
+      await localApi.patch(`users/${decodedToken!.sub}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {}
   };
   const updateCepUser = async (data: IFormUpdateCep) => {
     try {
-      await api.patch(`users/${decodedToken!.sub}`, data, {
+      await localApi.patch(`users/${decodedToken!.sub}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {}
@@ -65,7 +64,7 @@ export const UserProvider = ({ children }: any) => {
 
   const deleteUser = async () => {
     try {
-      await api.delete(`users/${decodedToken!.sub}`, {
+      await localApi.delete(`users/${decodedToken!.sub}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       router.push("/login");
@@ -75,12 +74,12 @@ export const UserProvider = ({ children }: any) => {
 
   const forgotPassword = async (data: IFormUpdateInfoUser) => {
     try {
-      const response = await api.patch("recovery", data);
+      const response = await localApi.patch("recovery", data);
     } catch (error) {}
   };
   const resetPassword = async (data: IFormUpdateInfoUser, id: string) => {
     try {
-      await api.patch(`reset/${id}`, data);
+      await localApi.patch(`reset/${id}`, data);
     } catch (error) {}
   };
   return (

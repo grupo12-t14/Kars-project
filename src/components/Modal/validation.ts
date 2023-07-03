@@ -16,9 +16,19 @@ export const createAnnouncementSchema = yup.object({
   fipePrice: yup.number(),
   sellPrice: yup.string(),
   description: yup.string(),
+  isActive: yup.boolean().default(true),
   coverImage: yup.string(),
 });
+const returnAnnouncementSchema = createAnnouncementSchema.concat(
+  yup.object({
+    id: yup.string(),
+  })
+);
 
+export const updatableAnnouncementSchema = createAnnouncementSchema.partial();
 export type CreateAnnouncementData = yup.InferType<
   typeof createAnnouncementSchema
+>;
+export type UpdatableAnnouncementData = yup.InferType<
+  typeof updatableAnnouncementSchema
 >;

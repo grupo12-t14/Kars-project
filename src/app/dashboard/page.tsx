@@ -20,10 +20,10 @@ export interface iPaginatedAnnouncementResults {
   data: iAnnouncement[];
 }
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <>
-      <div className="flex mx-auto h-fit my-[25%]" role="status">
+      <div className="flex w-fit mx-auto h-fit my-[25%]" role="status">
         <svg
           aria-hidden="true"
           className="w-24 h-24 mr-2 mx-auto text-white animate-spin dark:text-gray-600 fill-brand-100"

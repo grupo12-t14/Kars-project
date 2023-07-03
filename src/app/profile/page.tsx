@@ -3,10 +3,15 @@
 import { mock } from "@/components/mock";
 
 import { carsApi } from "@/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AnnouncementCard } from "../../components/profile/announcementCard";
 import { ModalCreateAnnouncement } from "@/components/profile/createAnnouncementModal";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { EditAndExcludeAnnouncementModal } from "@/components/profile/editAndExcludeAnnouncementModal";
+import { useAnnouncementContext } from "../contexts/announcement";
+import { LoadingSpinner } from "../dashboard/page";
+import { UserContext } from "@/contexts/contexts";
+import jwt from "jsonwebtoken";
 
 export interface iUser {
   name: string;
@@ -42,15 +47,45 @@ const user1 = {
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
 };
 
+interface iDecoded {
+  userType: string;
+  iat: number;
+  exp: number;
+  sub: string;
+}
+
 const Profile = () => {
+  const router = useRouter();
+  const { token }: any = useContext(UserContext);
+  const decodedToken: any = jwt.decode(token);
+  if (!decodedToken?.userType) {
+    router.push("/dashboard");
+  }
+  if (decodedToken?.userType && decodedToken.userType != "seller") {
+    router.push("/dashboard");
+  }
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [announcementId, setAnnouncementId] = useState("");
   const toggleModal = () => setIsCreateModalOpen(!isCreateModalOpen);
+  const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
+  const { retriveSellerAnnouncements, isLoading, sellerAnnouncements } =
+    useAnnouncementContext();
+  useEffect(() => {
+    retriveSellerAnnouncements("ad636b20-76ea-4f89-9941-e1dae287b798");
+  }, []);
+
   return (
     <>
       {isCreateModalOpen && (
-        <ModalCreateAnnouncement
-          toggleModal={toggleModal}
-        ></ModalCreateAnnouncement>
+        <ModalCreateAnnouncement toggleModal={toggleModal} />
+      )}
+
+      {isEditModalOpen && (
+        <EditAndExcludeAnnouncementModal
+          announcementId={announcementId}
+          toggleModal={toggleEditModal}
+        />
       )}
       <div className="bg-gray-800 h-100%">
         <div className="bg-brand-100 h-[30vh] relative"></div>
@@ -79,10 +114,23 @@ const Profile = () => {
           </div>
         </section>
         <section className="mt-[250px]">
-          <ul className="pl-12 flex align-middle w-full overflow-x-scroll overflow-y-hidden p gap-20 md:flex-wrap md:max-w-[95%] md:pl-4 md:mx-auto md:justify-between p-4">
-            {mock.map((e, i) => (
-              <AnnouncementCard key={i} element={e}></AnnouncementCard>
-            ))}
+          <ul className="ml-[20px] flex align-middle w-full overflow-x-scroll overflow-y-hidden p gap-20 md:flex-wrap md:max-w-[95%] md:pl-4 md:mx-auto p-4">
+            {sellerAnnouncements.length > 0 ? (
+              sellerAnnouncements?.map((e, i) => (
+                <AnnouncementCard
+                  params=""
+                  setAnnouncementId={setAnnouncementId}
+                  setEditModalOpen={setIsEditModalOpen}
+                  key={i}
+                  element={e}
+                ></AnnouncementCard>
+              ))
+            ) : (
+              <h1>
+                Parece que você não possuí nenhum anúncio cadastrado, gostaria
+                de começar?
+              </h1>
+            )}
           </ul>
         </section>
         <></>
