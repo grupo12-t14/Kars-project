@@ -2,6 +2,7 @@
 import {
   IFormUpdateCep,
   IFormUpdateInfoUser,
+  iCommentForm,
   iLoginForm,
   iRegisterForm,
 } from "@/types/types";
@@ -25,9 +26,8 @@ export const UserProvider = ({ children }: any) => {
         data.cep = data.cep.replace(/\D/g, "");
         data.cpf = data.cpf.replace(/\D/g, "");
         data.telephone = data.telephone.replace(/\D/g, "");
-        const response = await localApi.post("register", data);
-
-        response.status === 201 && setRegisterSuccess(true);
+        const response = await localApi.post("users/", data);
+        console.log(response);
         setRegisterSuccess(true);
       } catch (error) {
         console.log(error);
@@ -82,6 +82,19 @@ export const UserProvider = ({ children }: any) => {
       await localApi.patch(`reset/${id}`, data);
     } catch (error) {}
   };
+
+  const getCommentData = async (data: iCommentForm) => {
+    if (token) {
+      try {
+        //const response = await localApi.post(`${1}/comments`, data);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -96,6 +109,7 @@ export const UserProvider = ({ children }: any) => {
         forgotPassword,
         resetPassword,
         deleteUser,
+        getCommentData,
       }}
     >
       {children}
