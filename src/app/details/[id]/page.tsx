@@ -1,15 +1,17 @@
 "use client";
 import Image from "next/image";
-import imageMainCar from "../../assets/mainImageDetail.png";
+import imageMainCar from "../../../assets/mainImageDetail.png";
 import Comment from "@/components/comment";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { commentSchema } from "@/schemas/commentSchema";
 import { UserContext } from "@/contexts/contexts";
+import { AnnouncementContext } from "@/app/contexts/announcement";
 
 const Detail = () => {
-  const { getCommentData }: any = useContext(UserContext);
+  const { getCommentData, commentsList, user, announcement }: any =
+    useContext(UserContext);
   const refElem = useRef<any>(null);
   const [padding, setPadding] = useState(0);
   const [inputValue, setInputValue] = useState("");
@@ -17,7 +19,7 @@ const Detail = () => {
   useEffect(() => {
     if (refElem.current) {
       const heightRefElem = refElem.current.offsetHeight;
-      const novoPadding = heightRefElem - 300;
+      const novoPadding = heightRefElem * 1.1;
       setPadding(novoPadding);
     }
   }, []);
@@ -32,7 +34,8 @@ const Detail = () => {
   });
 
   const handleSuggest = (e: any) => {
-    setValue("comment", e.target.textContent);
+    setInputValue(e.target.textContent);
+    setValue("content", e.target.textContent);
   };
 
   const handleInput = (e: any) => {
@@ -47,8 +50,6 @@ const Detail = () => {
     imageMainCar,
     imageMainCar,
   ];
-
-  const commentsMock: any = [];
 
   return (
     <main
@@ -75,19 +76,19 @@ const Detail = () => {
               className="bg-gray-950 w-full rounded p-[44px] mt-[20px] "
             >
               <h2 className="text-gray-1 font-bold text-20px">
-                Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
+                {announcement?.model}
               </h2>
               <div className="flex flex-col w-full gap-3 mt-[43px] md:flex-row md:items-center md:justify-between">
                 <div className="flex gap-3">
                   <span className="text-brand-100 bg-brand-400 py-[4px] px-[8px] rounded">
-                    2013
+                    {announcement?.year}
                   </span>
                   <span className="text-brand-100 bg-brand-400 py-[4px] px-[8px] rounded">
-                    0 km
+                    {announcement?.mileage} km
                   </span>
                 </div>
                 <span className="text-gray-1 font-bold justify-end">
-                  R$ 00.000,00
+                  R$ {announcement?.sellPrice}
                 </span>
               </div>
               <button className="bg-brand-100 text-gray-950 font-bold h-[38px] w-[100px] rounded mt-[24px]">
@@ -99,25 +100,21 @@ const Detail = () => {
               className="w-full rounded mt-[24px] p-[36px] bg-gray-950 "
             >
               <h2 className="text-gray-1 font-bold text-20px">Descrição</h2>
-              <p className="mt-[32px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-                quam explicabo ullam obcaecati vero, doloremque beatae illum
-                corrupti. Sint cum magni odit provident aperiam veritatis
-                laudantium nisi sequi, modi quos.
-              </p>
+              <p className="mt-[32px]">{announcement?.description}</p>
             </div>
 
             <div className="w-full mt-[24px] rounded p-[36px] mb-[24px] bg-gray-950 flex flex-col gap-8">
               <h2 className="text-gray-1 font-bold text-20px">Comentários</h2>
               <ul className="flex flex-col gap-12 w-full max-h-[400px] overflow-y-auto overflow-x-hidden">
                 <>
-                  {commentsMock.map((elem: any, index: any) => {
+                  {commentsList.map((elem: any, index: any) => {
                     return (
                       <Comment
                         key={index}
                         name={elem.name}
                         image={elem.image}
-                        comment={elem.comment}
+                        content={elem.content}
+                        createdAt={elem.createdAt}
                       />
                     );
                   })}
@@ -130,13 +127,15 @@ const Detail = () => {
               className="flex flex-col gap-[6px] sm:gap-3 w-full p-[36px]"
             >
               <div className="flex items-center gap-2">
-                <figure className="w-[30px] h-[30px] rounded-[50%]">
-                  <Image src={""} alt="" />
-                </figure>
-                <p>Nome</p>
+                <div className="bg-brand-100 w-[30px] h-[30px] rounded-full flex items-center justify-center">
+                  <p className="text-gray-1 font-bold">
+                    {user?.name[0].toUpperCase()}
+                  </p>
+                </div>
+                <p>{user?.name}</p>
               </div>
               <textarea
-                {...register("comment")}
+                {...register("content")}
                 onInput={handleInput}
                 className="relative resize-none rounded-sm border-[1px] border-gray-500 p-2 outline-none"
                 placeholder="Digite seu comentário..."
@@ -210,17 +209,14 @@ const Detail = () => {
               className="bg-gray-950 rounded w-full p-[40px] mt-[52px] flex flex-col justify-center"
             >
               <div className="bg-brand-100 w-[77px] h-[77px] rounded-full flex justify-center items-center mx-auto">
-                <p className="text-gray-1 font-bold">HR</p>
+                <p className="text-gray-1 font-bold">
+                  {user?.name[0].toUpperCase()}
+                </p>
               </div>
               <h2 className="text-gray-1 font-bold text-20px text-center mt-[28px]">
-                Hugo Raphael
+                {user?.name}
               </h2>
-              <p className="mt-[28px] mx-auto">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-                voluptatibus officia architecto assumenda unde reprehenderit
-                recusandae, quaerat possimus iusto fuga sint dignissimos nam?
-                Commodi modi eius mollitia quae! Eius, ullam?
-              </p>
+              <p className="mt-[28px] mx-auto">{user?.description}</p>
               <button className="bg-gray-0 text-gray-950 font-bold py-[12px] px-[28px] rounded mt-[28px] max-w-[206px] mx-auto">
                 Ver Todos anúncios
               </button>

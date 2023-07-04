@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "./Modal/modal";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -73,10 +73,10 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
                 type="text"
                 className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                 onChange={(e) => handleCepChange(e.target.value)}
-              />
+              /> 
             </fieldset>
               {errors.cep?.message && (
-                <span className="text-red-500">{errors.cep.message}</span>
+                <span className="text-red-500">{errors.cep.message as ReactNode}</span>
               )}
             <div className="flex w-full justify-between">
               <fieldset className="flex flex-col w-[47%] gap-1">
