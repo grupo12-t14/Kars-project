@@ -6,6 +6,7 @@ interface iInputProps extends InputHTMLAttributes<HTMLInputElement> {
   register?: any;
 }
 
+// eslint-disable-next-line react/display-name
 export const Input = forwardRef<HTMLInputElement, iInputProps>(
   ({ label, placeholder, register, ...rest }) => {
     return (

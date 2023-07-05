@@ -36,12 +36,23 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
         >
           {isSellProfitable && "$"}
         </p>
-        <div onClick={() => router.push(`details/`)} className="hover:border-brand-100 hover:border-2 border-2 border-transparent">
+        <div
+          onClick={() => router.push(`/details/${announcement.id}`)}
+          className="hover:border-brand-100 hover:border-2 border-2 border-transparent cursor-pointer"
+        >
           <Image className="bg-gray-500" src={carro} alt="coverImage" />
         </div>
         <div className="flex flex-col gap-2 p-3">
-          <p className="font-bold">{announcement.model}</p>
-          <p className="truncate ... text-gray-200 text-[12px]">
+          <p
+            onClick={() => router.push(`/details/${announcement.id}`)}
+            className="font-bold cursor-pointer"
+          >
+            {announcement.model}
+          </p>
+          <p
+            onClick={() => router.push(`/details/${announcement.id}`)}
+            className="truncate ... text-gray-200 text-[12px] cursor-pointer"
+          >
             {announcement.description}
           </p>
 

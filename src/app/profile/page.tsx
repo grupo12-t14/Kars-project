@@ -1,12 +1,9 @@
 "use client";
 
 import { mock } from "@/components/mock";
-
-import { carsApi } from "@/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnnouncementCard } from "../../components/profile/announcementCard";
 import { ModalCreateAnnouncement } from "@/components/profile/createAnnouncementModal";
-import { useRouter } from "next/router";
 
 export interface iUser {
   name: string;

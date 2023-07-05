@@ -6,8 +6,8 @@ import {
   iLoginForm,
   iRegisterForm,
 } from "@/types/types";
-import { createContext, useState } from "react";
-import { useRouter } from "next/navigation";
+import { createContext, useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import jwt from "jsonwebtoken";
 import { localApi } from "@/api";
 
@@ -19,6 +19,11 @@ export const UserProvider = ({ children }: any) => {
   const token = localStorage.getItem("@TOKEN");
   const tokenString = token + "";
   const decodedToken = jwt.decode(tokenString);
+  const { id } = useParams();
+  const [commentsList, SetCommentsList] = useState([]);
+  const [user, setUser] = useState(null);
+  const [announcement, setAnnouncement] = useState(null);
+  const [commentId, setCommentId] = useState("");
 
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
@@ -84,14 +89,91 @@ export const UserProvider = ({ children }: any) => {
   };
 
   const getCommentData = async (data: iCommentForm) => {
+    const newData = {
+      content: data.content,
+      announcement: id,
+      user: decodedToken?.sub,
+    };
     if (token) {
       try {
-        //const response = await localApi.post(`${1}/comments`, data);
+        const response = await localApi.post(`/comments`, newData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        getComments();
       } catch (error) {
         console.log(error);
       }
     } else {
       router.push("/login");
+    }
+  };
+
+  const getComments = async () => {
+    try {
+      const response = await localApi.get(`comments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      SetCommentsList(response.data);
+      return commentsList;
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const response = await localApi.get(`comments/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        SetCommentsList(response.data);
+        return commentsList;
+      } catch (error) {}
+    };
+    getComments();
+  }, []);
+
+  useEffect(() => {
+    const getUserById = async () => {
+      try {
+        const response = await localApi.get(`users/${decodedToken?.sub}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUser(response.data);
+      } catch (error) {}
+    };
+    getUserById();
+  }, []);
+
+  useEffect(() => {
+    const getAnnouncementByid = async () => {
+      try {
+        const response = await localApi.get(`announcements/${id}`);
+        setAnnouncement(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getAnnouncementByid();
+  }, []);
+
+  const editCommentReq = async (formData: any) => {
+    try {
+      await localApi.patch(`/comments/${commentId}`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      getComments();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteComment = async (id: string) => {
+    try {
+      await localApi.delete(`/comments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      getComments();
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -110,6 +192,12 @@ export const UserProvider = ({ children }: any) => {
         resetPassword,
         deleteUser,
         getCommentData,
+        commentsList,
+        user,
+        announcement,
+        editCommentReq,
+        setCommentId,
+        deleteComment,
       }}
     >
       {children}

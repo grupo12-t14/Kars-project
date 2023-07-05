@@ -6,12 +6,12 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { iAnnouncement } from "../profile/page";
 import { iPaginatedAnnouncementResults } from "../dashboard/page";
 import { localApi } from "../../api";
+import { useParams } from "next/navigation";
 
 interface Props {
   children: ReactNode;
@@ -57,11 +57,13 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const [paginatedAnnouncements, setPaginatedAnnouncements] = useState<
     iPaginatedAnnouncementResults | []
   >([]);
+  const { id } = useParams();
   const [queryParamsString, setQueryParamsString] = useState<string>("");
   const [filterOptions, setFilterOptions] = useState<iFilterOptions | []>([]);
   const [sellerAnnouncements, setSellerAnnouncements] = useState<
     iAnnouncement[]
   >([]);
+
   const getAnnouncementsRequest = async () => {
     try {
       setIsLoading(true);
@@ -70,7 +72,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
         {}
       );
       const paginatedResponse = await localApi.get(
-        "http://localhost:3000/announcements/?page=1&perPage=12"
+        "announcements/?page=1&perPage=12"
       );
       setPaginatedAnnouncements(paginatedResponse.data);
       setGetAnnouncements(response.data);
@@ -95,7 +97,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
       }, 1000);
     }
   };
-
+ 
   const retriveSellerAnnouncements = async (userId: string) => {
     try {
       setIsLoading(true);

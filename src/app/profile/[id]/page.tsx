@@ -1,8 +1,6 @@
 "use client";
 import { useAnnouncementContext } from "@/app/contexts/announcement";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { iAnnouncement } from "../page";
+import React, { useEffect } from "react";
 import { AnnouncementCard } from "@/components/profile/announcementCard";
 
 const user1 = {
@@ -11,14 +9,11 @@ const user1 = {
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500sLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
 };
 const ProfilePerId = ({ params }: { params: { id: string } }) => {
-  let searchParams: any = useSearchParams();
-
   const { retriveSellerAnnouncements, sellerAnnouncements } =
     useAnnouncementContext();
   useEffect(() => {
     retriveSellerAnnouncements(params.id);
-  }, []);
-  const router = useRouter();
+  }, [params.id, retriveSellerAnnouncements]);
   return (
     <>
       <div className="bg-gray-800">

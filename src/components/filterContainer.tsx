@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   iFilterOptions,
@@ -6,9 +6,7 @@ import {
 } from "@/app/contexts/announcement";
 
 export const KmAndPriceContainer = ({ title }: any) => {
-  const [inputValue, setInputValue] = useState(0);
-  let auxNumber: number = 0;
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {};
+  const handleInputChange = () => {};
   return (
     <div className="flex flex-col gap-2 font-semibold">
       <h2 className="text-typography-20">{title}</h2>
@@ -17,7 +15,7 @@ export const KmAndPriceContainer = ({ title }: any) => {
           <label htmlFor="MileageRange">Min</label>
           <input
             onChange={(e) => {
-              handleInputChange(e);
+              handleInputChange();
             }}
             type="text"
             pattern="\d*"
@@ -30,7 +28,7 @@ export const KmAndPriceContainer = ({ title }: any) => {
           <label htmlFor="PriceRange">Max</label>
           <input
             onChange={(e) => {
-              handleInputChange(e);
+              handleInputChange();
             }}
             type="text"
             pattern="\d*"
@@ -46,13 +44,13 @@ interface iFilterProps {
   title: string;
   key: number;
 }
-export const FilterContainer = ({ title, key }: iFilterProps) => {
-  const { setQueryParamsString, isLoading, filterOptions } =
+export const FilterContainer = ({ title }: iFilterProps) => {
+  const { filterOptions } =
     useAnnouncementContext();
   const options = filterOptions as iFilterOptions;
 
   const FilterOption = ({ option, context }: any) => {
-    const { setQueryParamsString, isLoading, filterOptions } =
+    const { setQueryParamsString } =
       useAnnouncementContext();
     let pathname = usePathname();
     let searchParams: any = useSearchParams();
@@ -65,7 +63,7 @@ export const FilterContainer = ({ title, key }: iFilterProps) => {
         setQueryParamsString(params.toString());
         return params.toString();
       },
-      [searchParams]
+      [searchParams, setQueryParamsString]
     );
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
