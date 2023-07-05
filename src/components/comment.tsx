@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { commentSchema } from "@/schemas/commentSchema";
 
 const Comment = ({ comment, pageUser }: any) => {
-  const { token, editCommentReq, setCommentId, deleteComment }: any =
+  const { token, editCommentReq, setCommentId, deleteComment, color }: any =
     useContext(UserContext);
   const { id, user, content, createdAt } = comment;
   const [hover, setHover] = useState(false);
@@ -75,7 +75,7 @@ const Comment = ({ comment, pageUser }: any) => {
       <div className="flex flex-col w-full gap-3">
         <div className="flex items-center gap-2">
           <div className="bg-brand-100 w-[30px] h-[30px] rounded-full flex items-center justify-center">
-            <p className="text-gray-1 font-bold">
+            <p className="text-gray-600 font-bold">
               {commentUser?.name[0].toUpperCase()}
             </p>
           </div>
@@ -128,13 +128,13 @@ const Comment = ({ comment, pageUser }: any) => {
         </div>
       )}
       {commentModal && (
-        <div className="absolute right-10 bg-gray-600 w-[150px] h-[90%] my-auto rounded-md flex flex-col justify-between">
-          <button onClick={handleEdit} className="w-full h-1/2 rounded-t-md">
+        <div className="absolute right-10 bg-gray-500 font-semibold w-[150px] h-[90%] my-auto rounded-sm flex flex-col justify-between">
+          <button onClick={handleEdit} className="w-full h-1/2 rounded-t-sm">
             Editar
           </button>
           <button
             onClick={handleDelete}
-            className="w-full h-1/2 bg-feedBack-alert-100 text-gray-950 rounded-b-md"
+            className="w-full h-1/2 bg-gray-200 text-gray-950 rounded-b-sm"
           >
             Excluir
           </button>

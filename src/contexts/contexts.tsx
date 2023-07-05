@@ -20,7 +20,7 @@ export const UserProvider = ({ children }: any) => {
   const tokenString = token + "";
   const decodedToken = jwt.decode(tokenString);
   const { id } = useParams();
-  const [commentsList, SetCommentsList] = useState([]);
+  const [commentsList, setCommentsList] = useState([]);
   const [user, setUser] = useState(null);
   const [announcement, setAnnouncement] = useState(null);
   const [commentId, setCommentId] = useState("");
@@ -113,8 +113,7 @@ export const UserProvider = ({ children }: any) => {
       const response = await localApi.get(`comments/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      SetCommentsList(response.data);
-      return commentsList;
+      setCommentsList(response.data);
     } catch (error) {}
   };
 
@@ -124,12 +123,11 @@ export const UserProvider = ({ children }: any) => {
         const response = await localApi.get(`comments/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        SetCommentsList(response.data);
-        return commentsList;
+        setCommentsList(response.data);
       } catch (error) {}
     };
     getComments();
-  }, []);
+  }, [token, id]);
 
   useEffect(() => {
     const getUserById = async () => {
@@ -153,7 +151,7 @@ export const UserProvider = ({ children }: any) => {
       }
     };
     getAnnouncementByid();
-  }, []);
+  }, [id]);
 
   const editCommentReq = async (formData: any) => {
     try {
@@ -198,6 +196,7 @@ export const UserProvider = ({ children }: any) => {
         editCommentReq,
         setCommentId,
         deleteComment,
+        getComments,
       }}
     >
       {children}
