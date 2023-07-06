@@ -10,7 +10,9 @@ import { createContext, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import jwt from "jsonwebtoken";
 import { localApi } from "@/api";
+import { toast } from "react-toastify";
 import { iUser } from "@/app/profile/page";
+
 
 export const UserContext = createContext({});
 
@@ -38,6 +40,7 @@ export const UserProvider = ({ children }: any) => {
         data.telephone = data.telephone.replace(/\D/g, "");
         const response = await localApi.post("users/", data);
         setRegisterSuccess(true);
+        toast.success("Conta criada com sucesso.")
       } catch (error) {
         console.log(error);
       }
@@ -74,6 +77,7 @@ export const UserProvider = ({ children }: any) => {
         const response = await localApi.post("login", data);
         response.status === 200 && router.push(`dashboard`);
         localStorage.setItem("@TOKEN", response.data.token);
+        toast.success("Login efetuado com sucesso.")
       } catch (error) {
         console.log(error);
       }
@@ -86,40 +90,61 @@ export const UserProvider = ({ children }: any) => {
     setUserInfo(undefined);
     router.push(`/login`);
   };
+
   const updateInfoUser = async (data: IFormUpdateInfoUser) => {
     try {
+      data.cpf = data.cpf?.replace(/\D/g, "");
+      data.telephone = data.telephone?.replace(/\D/g, "");
       await localApi.patch(`users/${decodedToken!.sub}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-    } catch (error) {}
+      toast.success("Informações pessoais atualizadas com sucesso.")
+    } catch (error:any) {
+      toast.error(error.message)
+    }
   };
   const updateCepUser = async (data: IFormUpdateCep) => {
     try {
+      data.cep = data.cep.replace(/\D/g, "");
       await localApi.patch(`users/${decodedToken!.sub}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
-    } catch (error) {}
+      toast.success("Informações de endereço atualizadas com sucesso.")
+    } catch (error:any) {
+      toast.error(error.message)
+    }
   };
 
   const deleteUser = async () => {
     try {
-      await localApi.delete(`users/${decodedToken!.sub}`, {
+      const response = await localApi.delete(`users/${decodedToken!.sub}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      toast.success("Sua conta foi deletada sucesso.")
       router.push("/login");
+      console.log({respostaDelete: response})
       localStorage.removeItem("@TOKEN");
-    } catch (error) {}
+    } catch (error:any) {
+      toast.error(error.message)
+    }
   };
 
   const forgotPassword = async (data: IFormUpdateInfoUser) => {
     try {
-      const response = await localApi.patch("recovery", data);
-    } catch (error) {}
+      await localApi.patch("recovery", data);
+      toast.success("Confira seu email redefinir sua senha.")
+    } catch (error:any) {
+      toast.error(error.message)
+    }
   };
+
   const resetPassword = async (data: IFormUpdateInfoUser, id: string) => {
     try {
       await localApi.patch(`reset/${id}`, data);
-    } catch (error) {}
+      toast.success("Sua senha foi atualizada com sucesso.")
+    } catch (error:any) {
+      toast.error(error.message)
+    }
   };
 
   const getCommentData = async (data: iCommentForm) => {
