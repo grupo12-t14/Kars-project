@@ -62,3 +62,22 @@ O MotorsShop é desenvolvido utilizando as seguintes tecnologias:
 - Rode a api seguindo as instruções no arquivo "readme" no repositório da api.
 
 - No terminal, rode o comando `yarn start` para iniciar o servidor localmente.
+
+---
+
+## Integrantes
+
+### Carlos Eduardo
+
+- LinkedIn: https://www.linkedin.com/in/carlos-eduardo-perezini-cavalari-347740250/
+- GitHub: https://github.com/CarlosGalleth
+
+### Jonathan Miranda
+
+- LinkedIn: https://www.linkedin.com/in/jonathanmir/
+- GitHub: https://github.com/jonathanmir
+
+### Hugo Raphael
+
+- LinkedIn: https://www.linkedin.com/in/hugo-raphael77/
+- GitHub: https://github.com/hugo-raphael
