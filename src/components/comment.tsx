@@ -3,13 +3,12 @@ import menu from "../assets/menudots.png";
 import { useState } from "react";
 import "moment/dist/locale/pt-br";
 
-const Comment = ({ image, name, comment }: any) => {
+const Comment = ({ image, name, content, createdAt }: any) => {
   const [hover, setHover] = useState(false);
   const moment = require("moment");
   require("moment/locale/pt-br");
   moment.locale("pt-br");
-  const dataPublicacaoMOCK = "2023-06-30 22:16:00";
-  const difference = moment(dataPublicacaoMOCK).fromNow();
+  const difference = moment(createdAt).fromNow();
 
   return (
     <li
@@ -30,7 +29,7 @@ const Comment = ({ image, name, comment }: any) => {
           <div className="w-[5px] h-[5px] rounded-xl bg-gray-400" />
           <p className="text-gray-400 text-sm">{difference}</p>
         </div>
-        <p className="leading-6 w-full line-clamp-3">{comment}</p>
+        <p className="leading-6 w-full line-clamp-3">{content}</p>
       </div>
       <div className="flex justify-center items-center w-[25px] mr-4">
         {hover && (

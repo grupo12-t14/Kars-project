@@ -12,7 +12,7 @@ export interface iInputForm {
 }
 
 export interface iCommentForm {
-  comment: string;
+  content: string;
 }
 
 export interface iLoginForm {
@@ -55,7 +55,6 @@ export interface IFormUpdateInfoUser {
   description?: string;
   cpf?: string;
 }
-
 
 export interface IFormEmailtoResetPassword {
   email: string;

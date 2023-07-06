@@ -10,7 +10,7 @@ import ProductCard from "@/components/productCard";
 import { useEffect, useState } from "react";
 import { iAnnouncement } from "../profile/page";
 import { useAnnouncementContext } from "../contexts/announcement";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/navBar";
 
 export interface iPaginatedAnnouncementResults {
@@ -61,10 +61,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
     getFilterOptionsFromDistinctRoute();
-  }, [getAnnouncementsRequest, getFilterOptionsFromDistinctRoute, queryParamsString]);
+  }, []);
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
-  }, [getAnnouncementsRequest, queryParamsString]);
+  }, []);
   const filterOptions = ["Marca", "Modelo", "Cor", "Ano", "Combustível"];
 
   return (
