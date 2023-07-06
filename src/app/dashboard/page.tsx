@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { iAnnouncement } from "../profile/page";
 import { useAnnouncementContext } from "../contexts/announcement";
 import { useParams, useRouter } from "next/navigation";
+import { Navbar } from "@/components/navBar";
 
 export interface iPaginatedAnnouncementResults {
   prevPage: string | null;
@@ -69,6 +70,7 @@ const Home: NextPage = () => {
   return (
     <>
       <>
+        <Navbar></Navbar>
         {filters && (
           <div className="fixed top-0 flex flex-col justify-between items-center bg-[#f2f2f2] w-full h-[90%] z-10 rounded-b-[38px]">
             <div className="flex items-center justify-end w-full h-[50px] bg-white px-3">

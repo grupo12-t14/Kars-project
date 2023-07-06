@@ -13,7 +13,6 @@ import { iPaginatedAnnouncementResults } from "../dashboard/page";
 import { localApi } from "@/api";
 import { UpdatableAnnouncementData } from "@/components/Modal/validation";
 
-
 interface Props {
   children: ReactNode;
 }
@@ -86,8 +85,9 @@ export const AnnouncementProvider = ({ children }: Props) => {
         {}
       );
       const paginatedResponse = await localApi.get(
-        "http://localhost:3000/announcements/?page=1&perPage=12"
+        "http://localhost:3000/announcements/"
       );
+      console.log(response.data);
       setPaginatedAnnouncements(paginatedResponse.data);
       setGetAnnouncements(response.data);
     } catch (err) {
@@ -154,7 +154,6 @@ export const AnnouncementProvider = ({ children }: Props) => {
       setIsLoading(true);
       const response = await localApi.get(`/announcements/user/${userId}`);
       setSellerAnnouncements(response.data);
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     } finally {

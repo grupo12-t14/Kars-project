@@ -320,9 +320,6 @@ export const EditAndExcludeAnnouncementModal = ({
   } = useAnnouncementContext();
 
   useEffect(() => {
-    isAnnouncementDeleted && console.log(`foi`);
-  }, [isAnnouncementDeleted]);
-  useEffect(() => {
     retrieveAnnouncementById(announcementId);
   }, []);
   return (
