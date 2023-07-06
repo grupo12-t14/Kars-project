@@ -27,7 +27,6 @@ export default function RootLayout({
         <ToastContainer/>
         <UserProvider>
           <AnnouncementProvider>
-            <Navbar></Navbar>
             {children}
             <Footer></Footer>
           </AnnouncementProvider>

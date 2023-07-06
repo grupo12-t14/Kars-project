@@ -75,13 +75,15 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
                 type="text"
                 className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                 onChange={(e) => handleCepChange(e.target.value)}
-              />
+              /> 
             </fieldset>
+
             {errors.cep?.message && (
               <span className="text-red-500">
                 {errors.cep?.message as ReactNode}
               </span>
             )}
+
             <div className="flex w-full justify-between">
               <fieldset className="flex flex-col w-[47%] gap-1">
                 <label>Estado</label>

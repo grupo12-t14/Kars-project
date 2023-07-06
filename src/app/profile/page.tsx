@@ -1,7 +1,6 @@
 "use client";
 
 import { mock } from "@/components/mock";
-
 import { carsApi } from "@/api";
 import { useContext, useEffect, useState } from "react";
 import { AnnouncementCard } from "../../components/profile/announcementCard";
@@ -12,6 +11,7 @@ import { useAnnouncementContext } from "../contexts/announcement";
 import { LoadingSpinner } from "../dashboard/page";
 import { UserContext } from "@/contexts/contexts";
 import jwt from "jsonwebtoken";
+import { Navbar } from "@/components/navBar";
 
 export interface iUser {
   name: string;
@@ -56,7 +56,7 @@ interface iDecoded {
 
 const Profile = () => {
   const router = useRouter();
-  const { token }: any = useContext(UserContext);
+  const { token, userInfo }: any = useContext(UserContext);
   const decodedToken: any = jwt.decode(token);
   if (!decodedToken?.userType) {
     router.push("/dashboard");
@@ -67,16 +67,19 @@ const Profile = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [announcementId, setAnnouncementId] = useState("");
+
   const toggleModal = () => setIsCreateModalOpen(!isCreateModalOpen);
   const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
+
   const { retriveSellerAnnouncements, isLoading, sellerAnnouncements } =
     useAnnouncementContext();
-  useEffect(() => {
-    retriveSellerAnnouncements("ad636b20-76ea-4f89-9941-e1dae287b798");
-  }, []);
 
+  useEffect(() => {
+    retriveSellerAnnouncements(userInfo?.id as string);
+  }, [userInfo]);
   return (
     <>
+      <Navbar></Navbar>
       {isCreateModalOpen && (
         <ModalCreateAnnouncement toggleModal={toggleModal} />
       )}
@@ -87,21 +90,22 @@ const Profile = () => {
           toggleModal={toggleEditModal}
         />
       )}
+
       <div className="bg-gray-800 h-100%">
         <div className="bg-brand-100 h-[30vh] relative"></div>
         <section className="">
           <div className="flex flex-col gap-4 rounded-md absolute top-[20%] bg-gray-950 h-fit left-1/2 -translate-x-1/2 w-[90%] p-6">
             <span className="rounded-full text-white text-3xl w-20 h-20 bg-brand-100 flex place-items-center justify-center">
-              {user1.name.charAt(0).toUpperCase()}
+              {userInfo?.name?.charAt(0).toUpperCase()}
             </span>
             <h2 className="font-bold flex gap-4 place-items-center w-full">
-              <span className="truncate ... text-lg"> {user1.name}</span>
+              <span className="truncate ... text-lg"> {userInfo?.name}</span>
               <span className="bg-gray-800 text-brand-100 text-sm font-semibold p-1 rounded-md">
                 Anunciante
               </span>
             </h2>
             <p className="line-clamp-4" onClick={() => {}}>
-              {user1.description}
+              {userInfo?.description}
             </p>
             <button
               onClick={() => {
@@ -118,7 +122,7 @@ const Profile = () => {
             {sellerAnnouncements.length > 0 ? (
               sellerAnnouncements?.map((e, i) => (
                 <AnnouncementCard
-                  params=""
+                  params={userInfo?.id}
                   setAnnouncementId={setAnnouncementId}
                   setEditModalOpen={setIsEditModalOpen}
                   key={i}

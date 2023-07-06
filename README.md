@@ -1,34 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MotorsShop
 
-## Getting Started
+O MotorsShop é uma plataforma de concessionária de veículos que disponibiliza diversos recursos com o objetivo de oferecer aos usuários uma experiência completa ao comprar e vender carros. Com suas funcionalidades abrangentes, o MotorsShop simplifica e torna conveniente o processo de negociação de veículos.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Anúncio de Carros:** O MotorsShop oferece a oportunidade de criar anúncios personalizados para quem deseja vender seu próprio veículo. Os usuários podem cadastrar carros para venda, incluindo detalhes completos como fotos, descrição, preço e informações de contato. Além disso, eles têm a liberdade de editar ou remover seus anúncios quando quiserem.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Gerenciamento de Anúncios:** Na MotorsShop, temos uma seção exclusiva para o gerenciamento dos anúncios, onde os usuários podem acessar todos os anúncios que cadastraram. Eles têm a opção de fazer alterações sempre que necessário ou remover os anúncios quando o veículo for vendido.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Autenticação e Gerenciamento de Perfil:** No MotorsShop, é fácil para os usuários criarem uma conta, fazerem login, redefinirem suas senhas e gerenciarem suas informações de perfil. Além disso, eles têm total liberdade para editar ou excluir seus perfis quando desejarem.
 
-## Learn More
+- **Compra de Carros:** Na MotorsShop, existe uma extensa variedade de veículos prontos para serem adquiridos. Os clientes podem explorar uma diversidade de marcas, modelos, anos, quilometragens e muito mais. Cada carro apresenta uma página detalhada, repleta de fotos, descrição completa, preço e dados de contato do vendedor.
 
-To learn more about Next.js, take a look at the following resources:
+- **Comentários:** Os usuários podem se envolver em interações entre si por meio de comentários, onde têm a opção de oferecer feedback, fazer perguntas ou fornecer informações extras sobre os carros anunciados. Adicionalmente, têm a possibilidade de editar ou remover seus próprios comentários.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Tecnologias
 
-## Deploy on Vercel
+O MotorsShop é desenvolvido utilizando as seguintes tecnologias:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- autoprefixer
+- axios
+- bcryptjs
+- class-variance-authority
+- clsx
+- eslint
+- eslint-config-next
+- jsonwebtoken
+- lucide-react
+- moment
+- next
+- next-themes
+- postcss
+- react
+- react-dom
+- react-hook-form
+- react-router-dom
+- react-select
+- sass
+- tailwind-merge
+- tailwindcss
+- tailwindcss-animate
+- typescript
+- yup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## API
+
+[Confira a API](https://github.com/grupo12-t14/Kars-api)!
+
+---
+
+## Iniciando o projeto
+
+- Abra o terminal e rode o comando `yarn` para instalar as bibliotecas necessárias.
+
+- Rode a api seguindo as instruções no arquivo "readme" no repositório da api.
+
+- No terminal, rode o comando `yarn start` para iniciar o servidor localmente.
+
+---
+
+## Integrantes
+
+### Carlos Eduardo
+
+- LinkedIn: https://www.linkedin.com/in/carlos-eduardo-perezini-cavalari-347740250/
+- GitHub: https://github.com/CarlosGalleth
+
+### Jonathan Miranda
+
+- LinkedIn: https://www.linkedin.com/in/jonathanmir/
+- GitHub: https://github.com/jonathanmir
+
+### Hugo Raphael
+
+- LinkedIn: https://www.linkedin.com/in/hugo-raphael77/
+- GitHub: https://github.com/hugo-raphael

@@ -89,7 +89,6 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
   const confirmDeleteProfile = async () => {
     await deleteUser();
     toggleModalDelete();
-    console.log("1");
   };
 
   return (

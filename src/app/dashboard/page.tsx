@@ -10,8 +10,8 @@ import ProductCard from "@/components/productCard";
 import { useEffect, useState } from "react";
 import { iAnnouncement } from "../profile/page";
 import { useAnnouncementContext } from "../contexts/announcement";
-import { useParams, usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Navbar } from "@/components/navBar";
 
 export interface iPaginatedAnnouncementResults {
   prevPage: string | null;
@@ -50,11 +50,7 @@ const Home: NextPage = () => {
   const [filters, setFilters] = useState(false);
   const {
     isLoading,
-    setIsLoading,
     getAnnouncements,
-    setGetAnnouncements,
-    paginatedAnnouncements,
-    setPaginatedAnnouncements,
     getAnnouncementsRequest,
     queryParamsString,
     setQueryParamsString,
@@ -62,22 +58,19 @@ const Home: NextPage = () => {
   }: any = useAnnouncementContext();
 
   const router = useRouter();
-  const handleResetFilters = () => {
-    router.push("");
-  };
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
     getFilterOptionsFromDistinctRoute();
   }, []);
   useEffect(() => {
     getAnnouncementsRequest(queryParamsString);
-  }, [queryParamsString]);
-  const params = useParams();
+  }, []);
   const filterOptions = ["Marca", "Modelo", "Cor", "Ano", "Combustível"];
 
   return (
     <>
       <>
+        <Navbar></Navbar>
         {filters && (
           <div className="fixed top-0 flex flex-col justify-between items-center bg-[#f2f2f2] w-full h-[90%] z-10 rounded-b-[38px]">
             <div className="flex items-center justify-end w-full h-[50px] bg-white px-3">

@@ -21,7 +21,6 @@ const ResetPassword = ({ params }: { params: { id: string } }) => {
   
     const submit: SubmitHandler<IFormNewPassword> = async (formData) => {
       await resetPassword(formData, params.id);
-      console.log(params)
       reset();
     };
   

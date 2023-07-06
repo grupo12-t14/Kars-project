@@ -6,14 +6,13 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { iAnnouncement } from "../profile/page";
 import { iPaginatedAnnouncementResults } from "../dashboard/page";
-import { localApi } from "@/api";
+import { localApi } from "../../api";
+import { useParams } from "next/navigation";
 import { UpdatableAnnouncementData } from "@/components/Modal/validation";
-
 
 interface Props {
   children: ReactNode;
@@ -70,6 +69,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const [paginatedAnnouncements, setPaginatedAnnouncements] = useState<
     iPaginatedAnnouncementResults | []
   >([]);
+  const { id } = useParams();
   const [queryParamsString, setQueryParamsString] = useState<string>("");
   const [filterOptions, setFilterOptions] = useState<iFilterOptions | []>([]);
   const [sellerAnnouncements, setSellerAnnouncements] = useState<
@@ -79,6 +79,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const [retrievedAnnouncement, setRetrievedAnnouncement] =
     useState<iAnnouncement | null>(null);
 
+
   const getAnnouncementsRequest = async () => {
     try {
       setIsLoading(true);
@@ -87,8 +88,9 @@ export const AnnouncementProvider = ({ children }: Props) => {
         {}
       );
       const paginatedResponse = await localApi.get(
-        "http://localhost:3000/announcements/?page=1&perPage=12"
+        "http://localhost:3000/announcements/"
       );
+      console.log(response.data);
       setPaginatedAnnouncements(paginatedResponse.data);
       setGetAnnouncements(response.data);
     } catch (err) {
@@ -112,7 +114,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
       }, 1000);
     }
   };
-
+ 
   const retrieveAnnouncementById = async (announcementId: string) => {
     try {
       setIsLoading(true);
@@ -155,7 +157,6 @@ export const AnnouncementProvider = ({ children }: Props) => {
       setIsLoading(true);
       const response = await localApi.get(`/announcements/user/${userId}`);
       setSellerAnnouncements(response.data);
-      console.log(response.data);
     } catch (err) {
       console.error(err);
     } finally {

@@ -3,7 +3,7 @@ import { UserContext } from "@/contexts/contexts";
 import { recoverPasswordSchema } from "@/schemas/recoverPasswordSchema";
 import { IFormNewPassword } from "@/types/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const ResetPassword = () => {

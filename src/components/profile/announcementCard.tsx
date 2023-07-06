@@ -1,22 +1,12 @@
 import Image from "next/image";
 import carro from "../../assets/car.webp";
 import { iAnnouncement } from "../../app/profile/page";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { UserContext } from "@/contexts/contexts";
 import jwt from "jsonwebtoken";
-const VisitorUser = {
-  id: "12",
-  name: "",
-  accountType: "",
-};
 
-const OwnerUser = {
-  id: "12",
-  name: "",
-  accountType: "",
-};
 interface iAnnouncementCardProps {
-  element: iAnnouncement;
+  element: any;
   params: string;
   setEditModalOpen: Dispatch<SetStateAction<boolean>> | undefined;
   setAnnouncementId: Dispatch<SetStateAction<string>> | undefined;
@@ -28,14 +18,14 @@ export const AnnouncementCard = ({
   setEditModalOpen,
   setAnnouncementId,
 }: iAnnouncementCardProps): JSX.Element => {
-  console.log(params);
+  const { router }: any = useContext(UserContext);
   const { token }: any = useContext(UserContext);
   const decodedToken: any = jwt.decode(token);
+  const [auxImgSrc, setAuxImgSrc] = useState("");
   let check;
   if (token) {
     check = decodedToken.sub === params;
   }
-  // const check = OwnerUser.id === VisitorUser.id;
   const sellValueNumber: number = parseInt(element.sellPrice);
   return (
     <li className="flex flex-col gap-3 max-w-[250px] relative flex-shrink-0 ">
@@ -51,11 +41,15 @@ export const AnnouncementCard = ({
         </p>
       )}
 
-      <Image
-        className="object-cover"
-        src={carro}
-        alt="AnnouncementImage"
-      ></Image>
+      <img
+        className="bg-gray-500"
+        onError={(e) => {
+          e.currentTarget.src =
+            "https://images.cars.com/cldstatic/wp-content/uploads/1673941437-1425510881103.jpeg";
+        }}
+        src={element.coverImage}
+        alt="coverImg"
+      />
       <p className="font-bold">
         {element.brand} - {element.model}
       </p>
@@ -87,7 +81,10 @@ export const AnnouncementCard = ({
           >
             Editar
           </button>
-          <button className="border-[2px] rounded-md h-fit w-[120px] p-1">
+          <button
+            onClick={() => router.push(`/details/${element.id}`)}
+            className="border-[2px] rounded-md h-fit w-[120px] p-1"
+          >
             Ver detalhes
           </button>
         </div>
