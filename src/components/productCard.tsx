@@ -103,6 +103,6 @@ const ProductCard = ({ announcement }: { announcement: any }) => {
       </div>
     </>
   );
+}
 };
-
 export default ProductCard;
