@@ -25,6 +25,17 @@ interface remainingCompleteCarFields {
   fipePrice: number;
 }
 
+export const handleMoneyChange = (
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  let inputValue = event.target.value;
+  inputValue = inputValue.replace(/\D/g, "");
+  inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
+  inputValue = "R$ " + inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
+  event.currentTarget.value = inputValue;
+  return event.currentTarget.value;
+};
+
 export const ModalCreateAnnouncement = ({
   toggleModal,
 }: CreateAnnouncementProps) => {
@@ -75,6 +86,7 @@ export const ModalCreateAnnouncement = ({
       </div>
     );
   };
+
   const availableBrands = Object.keys(availableCars);
   const handleChange = async (selectedCar: iInputOptions | null) => {
     setSelectedModel(selectedCar);
@@ -141,14 +153,6 @@ export const ModalCreateAnnouncement = ({
     }
   };
 
-  const handleMoneyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let inputValue = event.target.value;
-    inputValue = inputValue.replace(/\D/g, "");
-    inputValue = inputValue.replace(/(\d)(\d{2})$/, "$1,$2");
-    inputValue = "R$ " + inputValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
-    event.currentTarget.value = inputValue;
-    return event;
-  };
   const {
     register,
     handleSubmit,
