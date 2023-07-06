@@ -105,3 +105,4 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
   };
 };
 export default ProductCard;
+
