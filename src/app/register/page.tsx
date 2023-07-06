@@ -169,11 +169,11 @@ const Register: NextPage = () => {
               type="date"
               register={register("birthdate")}
             />
-            {/* {errors.birthDate?.message && (
+            {errors.birthdate?.message && (
               <span className="text-feedBack-alert-100 text-[14px] my-[-25px]">
-                {errors.birthDate.message}
+                Deve ser uma data válida.
               </span>
-            )} */}
+            )}
             <InputContainer
               label="Descrição"
               placeholder="Digitar Descrição"

@@ -6,12 +6,12 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { iAnnouncement } from "../profile/page";
 import { iPaginatedAnnouncementResults } from "../dashboard/page";
-import { localApi } from "@/api";
+import { localApi } from "../../api";
+import { useParams } from "next/navigation";
 import { UpdatableAnnouncementData } from "@/components/Modal/validation";
 
 interface Props {
@@ -69,6 +69,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const [paginatedAnnouncements, setPaginatedAnnouncements] = useState<
     iPaginatedAnnouncementResults | []
   >([]);
+  const { id } = useParams();
   const [queryParamsString, setQueryParamsString] = useState<string>("");
   const [filterOptions, setFilterOptions] = useState<iFilterOptions | []>([]);
   const [sellerAnnouncements, setSellerAnnouncements] = useState<
@@ -77,6 +78,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const [isAnnouncementDeleted, setIsAnnouncementDeleted] = useState(false);
   const [retrievedAnnouncement, setRetrievedAnnouncement] =
     useState<iAnnouncement | null>(null);
+
 
   const getAnnouncementsRequest = async () => {
     try {
@@ -112,7 +114,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
       }, 1000);
     }
   };
-
+ 
   const retrieveAnnouncementById = async (announcementId: string) => {
     try {
       setIsLoading(true);

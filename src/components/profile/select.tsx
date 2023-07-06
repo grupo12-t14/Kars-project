@@ -9,6 +9,7 @@ const Checkbox = ({ children, ...props }: JSX.IntrinsicElements["input"]) => (
   </label>
 );
 
+// eslint-disable-next-line import/no-anonymous-default-export, react/display-name
 export default () => {
   const [isClearable, setIsClearable] = useState(true);
   const [isSearchable, setIsSearchable] = useState(true);

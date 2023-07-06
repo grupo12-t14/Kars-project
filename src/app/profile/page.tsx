@@ -1,7 +1,6 @@
 "use client";
 
 import { mock } from "@/components/mock";
-
 import { carsApi } from "@/api";
 import { useContext, useEffect, useState } from "react";
 import { AnnouncementCard } from "../../components/profile/announcementCard";

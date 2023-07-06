@@ -3,7 +3,7 @@ import { Modal } from "./Modal/modal";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ediInfoUserSchema } from "@/schemas/editUserSchema";
 import { IFormUpdateInfoUser } from "@/types/types";
-import { useContext, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { UserContext } from "@/contexts/contexts";
 
 interface ModalEditAddresProps {
@@ -34,7 +34,7 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
   };
 
   const handleDeleteProfile = () => {
-    deleteUser()
+    deleteUser();
     toggleModalDelete();
   };
 
@@ -59,7 +59,9 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 {...register("name")}
               />
               {errors.name?.message && (
-                <span className="text-red-500">{errors.name.message}</span>
+                <span className="text-red-500">
+                  {errors.name.message as ReactNode}
+                </span>
               )}
             </fieldset>
             <fieldset className="flex flex-col w-full gap-1">
@@ -70,7 +72,9 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 {...register("email")}
               />
               {errors.email && (
-                <span className="text-red-500">{errors.email.message}</span>
+                <span className="text-red-500">
+                  {errors.email.message as ReactNode}
+                </span>
               )}
             </fieldset>
             <fieldset className="flex flex-col w-full gap-1">
@@ -81,7 +85,9 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 {...register("cpf")}
               />
               {errors.cpf && (
-                <span className="text-red-500">{errors.cpf.message}</span>
+                <span className="text-red-500">
+                  {errors.cpf.message as ReactNode}
+                </span>
               )}
             </fieldset>
             <fieldset className="flex flex-col gap-1">
@@ -92,7 +98,9 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 {...register("phone")}
               />
               {errors.phone && (
-                <span className="text-red-500">{errors.phone.message}</span>
+                <span className="text-red-500">
+                  {errors.phone.message as ReactNode}
+                </span>
               )}
             </fieldset>
             <fieldset className="flex flex-col w-full gap-1">
@@ -103,7 +111,7 @@ export const ModalEditInfoUser = ({ toggleModal }: ModalEditAddresProps) => {
                 {...register("birthDate")}
               />
               {errors.birthDate && (
-                <span className="text-red-500">{errors.birthDate.message}</span>
+                <span className="text-red-500">Deve ser uma data válida.</span>
               )}
             </fieldset>
             <div className="w-full flex justify-center gap-[10px] md:justify-end">
