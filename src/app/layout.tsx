@@ -6,6 +6,8 @@ import { UserProvider } from "../contexts/contexts";
 import { Navbar } from "@/components/navBar";
 import { Footer } from "@/components/footer";
 import { AnnouncementProvider } from "./contexts/announcement";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="text-black bg-white">
+        <ToastContainer/>
         <UserProvider>
           <AnnouncementProvider>
             <Navbar></Navbar>

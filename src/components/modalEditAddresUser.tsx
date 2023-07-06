@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "./Modal/modal";
 import axios from "axios";
@@ -19,13 +19,13 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
   const [logradouro, setLogradouro] = useState("");
 
   const { updateCepUser }: any = useContext(UserContext);
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    reset
+    reset,
   } = useForm<IFormUpdateCep | any>({
     resolver: yupResolver(editAddresSchema),
   });
@@ -49,10 +49,10 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
     setValue("street", logradouro);
   }, [estado, cidade, logradouro, setValue]);
 
-  const submit : SubmitHandler<IFormUpdateCep> = async(formData) => {
-    await updateCepUser(formData)
-    reset()
-  }
+  const submit: SubmitHandler<IFormUpdateCep> = async (formData) => {
+    await updateCepUser(formData);
+    reset();
+  };
 
   return (
     <>
@@ -70,19 +70,23 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
             <fieldset className="flex flex-col gap-1">
               <label>CEP</label>
               <input
+                placeholder="00000-000"
                 {...register("cep")}
                 type="text"
                 className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                 onChange={(e) => handleCepChange(e.target.value)}
               />
             </fieldset>
-              {errors.cep?.message && (
-                <span className="text-red-500">{errors.cep?.message}</span>
-              )}
+            {errors.cep?.message && (
+              <span className="text-red-500">
+                {errors.cep?.message as ReactNode}
+              </span>
+            )}
             <div className="flex w-full justify-between">
               <fieldset className="flex flex-col w-[47%] gap-1">
                 <label>Estado</label>
                 <input
+                placeholder="Digitar Estado"
                   type="text"
                   className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                   value={estado}
@@ -94,6 +98,7 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
                 <label>Cidade</label>
                 <input
                   type="text"
+                  placeholder="Digitar cidade"
                   className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                   value={cidade}
                   readOnly
@@ -105,6 +110,7 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
               <label>Rua</label>
               <input
                 type="text"
+                placeholder="Digitar rua"
                 className="h-[48px] rounded border-gray-300 border-[2px]"
                 value={logradouro}
                 readOnly
@@ -116,6 +122,7 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
                 <label>Número</label>
                 <input
                   type="text"
+                  placeholder="Digitar número"
                   className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                   {...register("number")}
                 />
@@ -124,6 +131,7 @@ export const ModalEditAddress = ({ toggleModal }: ModalEditAddresProps) => {
                 <label>Complemento</label>
                 <input
                   type="text"
+                  placeholder="Ex: apart 307"
                   className="h-[48px] rounded w-full border-gray-300 border-[2px]"
                   {...register("complement")}
                 />
