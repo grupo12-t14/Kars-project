@@ -35,7 +35,11 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
           {isSellProfitable && "$"}
         </p>
         <div className="hover:border-brand-100 hover:border-2 border-2 border-transparent">
-          <Image className="bg-gray-500" src={carro} alt="coverImage" />
+          <Image
+            className="bg-gray-500"
+            src={carro}
+            alt="coverImage"
+          />
         </div>
         <div className="flex flex-col gap-2 p-3">
           <p className="font-bold">{announcement.model}</p>
