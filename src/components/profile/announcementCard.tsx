@@ -1,24 +1,31 @@
 import Image from "next/image";
 import carro from "../../assets/car.webp";
 import { iAnnouncement } from "../../app/profile/page";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { UserContext } from "@/contexts/contexts";
+import jwt from "jsonwebtoken";
 
-const VisitorUser = {
-  id: "3",
-  name: "",
-  accountType: "",
-};
+interface iAnnouncementCardProps {
+  element: any;
+  params: string;
+  setEditModalOpen: Dispatch<SetStateAction<boolean>> | undefined;
+  setAnnouncementId: Dispatch<SetStateAction<string>> | undefined;
+}
 
-const OwnerUser = {
-  id: "12",
-  name: "",
-  accountType: "",
-};
 export const AnnouncementCard = ({
   element,
-}: {
-  element: iAnnouncement;
-}): JSX.Element => {
-  const check = OwnerUser.id === VisitorUser.id;
+  params,
+  setEditModalOpen,
+  setAnnouncementId,
+}: iAnnouncementCardProps): JSX.Element => {
+  const { token }: any = useContext(UserContext);
+  const decodedToken: any = jwt.decode(token);
+  const [auxImgSrc, setAuxImgSrc] = useState("");
+  let check;
+  if (token) {
+    check = decodedToken.sub === params;
+  }
+  // const check = OwnerUser.id === VisitorUser.id;
   const sellValueNumber: number = parseInt(element.sellPrice);
   return (
     <li className="flex flex-col gap-3 max-w-[250px] relative flex-shrink-0 ">
@@ -34,11 +41,14 @@ export const AnnouncementCard = ({
         </p>
       )}
 
-      <Image
-        className="object-cover"
-        src={carro}
-        alt="AnnouncementImage"
-      ></Image>
+      <img
+        className="bg-gray-500"
+        onError={(e) => {
+          e.currentTarget.src = carro.src;
+        }}
+        src={element.coverImage}
+        alt="coverImg"
+      />
       <p className="font-bold">
         {element.brand} - {element.model}
       </p>
@@ -61,7 +71,13 @@ export const AnnouncementCard = ({
       </div>
       {check && (
         <div className="mt-2 flex gap-3">
-          <button className="border-[2px] rounded-md h-fit p-1 px-2">
+          <button
+            onClick={() => {
+              setAnnouncementId!(element.id);
+              setEditModalOpen!(true);
+            }}
+            className="border-[2px] rounded-md h-fit p-1 px-2"
+          >
             Editar
           </button>
           <button className="border-[2px] rounded-md h-fit w-[120px] p-1">

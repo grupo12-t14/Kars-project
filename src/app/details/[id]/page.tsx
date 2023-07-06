@@ -38,6 +38,13 @@ const Detail = () => {
     setValue("content", e.target.textContent);
   };
 
+  const handleClickWhatsapp = () => {
+    const phoneNumber = 40028922
+    const message = `Olá vi seu anuncio sobre a venda do NomedoCarro, e gostaria de `;
+    const url = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(url, '_blank');
+  };
+
   const handleInput = (e: any) => {
     setInputValue(e.target.value);
   };
@@ -98,7 +105,8 @@ const Detail = () => {
                   R$ {announcement?.sellPrice}
                 </span>
               </div>
-              <button className="bg-brand-100 text-gray-950 font-bold h-[38px] w-[100px] rounded mt-[24px]">
+              <button onClick={handleClickWhatsapp} 
+                className="bg-brand-100 text-gray-950 font-bold h-[38px] w-[100px] rounded mt-[24px]">
                 Comprar
               </button>
             </div>

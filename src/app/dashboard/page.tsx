@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { iAnnouncement } from "../profile/page";
 import { useAnnouncementContext } from "../contexts/announcement";
 import { useRouter } from "next/navigation";
+import { Navbar } from "@/components/navBar";
 
 export interface iPaginatedAnnouncementResults {
   prevPage: string | null;
@@ -19,10 +20,10 @@ export interface iPaginatedAnnouncementResults {
   data: iAnnouncement[];
 }
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <>
-      <div className="flex mx-auto h-fit my-[25%]" role="status">
+      <div className="flex w-fit mx-auto h-fit my-[25%]" role="status">
         <svg
           aria-hidden="true"
           className="w-24 h-24 mr-2 mx-auto text-white animate-spin dark:text-gray-600 fill-brand-100"
@@ -69,6 +70,7 @@ const Home: NextPage = () => {
   return (
     <>
       <>
+        <Navbar></Navbar>
         {filters && (
           <div className="fixed top-0 flex flex-col justify-between items-center bg-[#f2f2f2] w-full h-[90%] z-10 rounded-b-[38px]">
             <div className="flex items-center justify-end w-full h-[50px] bg-white px-3">

@@ -24,7 +24,6 @@ export default function RootLayout({
       <body className="text-black bg-white">
         <UserProvider>
           <AnnouncementProvider>
-            <Navbar></Navbar>
             {children}
             <Footer></Footer>
           </AnnouncementProvider>

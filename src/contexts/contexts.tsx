@@ -10,11 +10,13 @@ import { createContext, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import jwt from "jsonwebtoken";
 import { localApi } from "@/api";
+import { iUser } from "@/app/profile/page";
 
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }: any) => {
   const router = useRouter();
+
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const token = localStorage.getItem("@TOKEN");
   const tokenString = token + "";
@@ -24,6 +26,9 @@ export const UserProvider = ({ children }: any) => {
   const [user, setUser] = useState(null);
   const [announcement, setAnnouncement] = useState(null);
   const [commentId, setCommentId] = useState("");
+  const [userInfo, setUserInfo] = useState<iUser | undefined>(undefined);
+  const [isUserLoading, setIsUserLoading] = useState(false);
+
 
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
@@ -32,13 +37,36 @@ export const UserProvider = ({ children }: any) => {
         data.cpf = data.cpf.replace(/\D/g, "");
         data.telephone = data.telephone.replace(/\D/g, "");
         const response = await localApi.post("users/", data);
-        console.log(response);
         setRegisterSuccess(true);
       } catch (error) {
         console.log(error);
       }
     }
     fetchData();
+  };
+  const retrieveUserInfo = async (token: string) => {
+    const tokenString = token + "";
+    const decodedToken = jwt.decode(tokenString);
+
+    try {
+      setIsUserLoading(true);
+      if (token.length === 36) {
+        const response = await localApi.get(`users/${token}`);
+        if (response.status === 200) {
+          return response.data;
+        }
+      } else {
+        const response = await localApi.get(`users/${decodedToken!.sub}`);
+        if (response.status === 200) {
+          setUserInfo(response.data);
+          return response.data;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsUserLoading(false);
+    }
   };
   const getLoginData = (data: iLoginForm) => {
     async function fetchData() {
@@ -51,6 +79,12 @@ export const UserProvider = ({ children }: any) => {
       }
     }
     fetchData();
+  };
+
+  const logout = async () => {
+    localStorage.clear();
+    setUserInfo(undefined);
+    router.push(`/login`);
   };
   const updateInfoUser = async (data: IFormUpdateInfoUser) => {
     try {
@@ -190,6 +224,10 @@ export const UserProvider = ({ children }: any) => {
         resetPassword,
         deleteUser,
         getCommentData,
+        retrieveUserInfo,
+        userInfo,
+        logout,
+        isUserLoading,
         commentsList,
         user,
         announcement,
