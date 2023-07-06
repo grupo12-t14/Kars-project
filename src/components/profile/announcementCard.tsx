@@ -18,6 +18,7 @@ export const AnnouncementCard = ({
   setEditModalOpen,
   setAnnouncementId,
 }: iAnnouncementCardProps): JSX.Element => {
+  const { router }: any = useContext(UserContext);
   const { token }: any = useContext(UserContext);
   const decodedToken: any = jwt.decode(token);
   const [auxImgSrc, setAuxImgSrc] = useState("");
@@ -25,7 +26,6 @@ export const AnnouncementCard = ({
   if (token) {
     check = decodedToken.sub === params;
   }
-  // const check = OwnerUser.id === VisitorUser.id;
   const sellValueNumber: number = parseInt(element.sellPrice);
   return (
     <li className="flex flex-col gap-3 max-w-[250px] relative flex-shrink-0 ">
@@ -44,7 +44,8 @@ export const AnnouncementCard = ({
       <img
         className="bg-gray-500"
         onError={(e) => {
-          e.currentTarget.src = carro.src;
+          e.currentTarget.src =
+            "https://images.cars.com/cldstatic/wp-content/uploads/1673941437-1425510881103.jpeg";
         }}
         src={element.coverImage}
         alt="coverImg"
@@ -80,7 +81,10 @@ export const AnnouncementCard = ({
           >
             Editar
           </button>
-          <button className="border-[2px] rounded-md h-fit w-[120px] p-1">
+          <button
+            onClick={() => router.push(`/details/${element.id}`)}
+            className="border-[2px] rounded-md h-fit w-[120px] p-1"
+          >
             Ver detalhes
           </button>
         </div>
