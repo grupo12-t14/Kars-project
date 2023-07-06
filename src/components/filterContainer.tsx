@@ -76,9 +76,11 @@ export const FilterContainer = ({ title, key }: iFilterProps) => {
           : option == "Etanol"
           ? (newFuel = "2")
           : (newFuel = "3");
-        router.push(pathname + "?" + createQueryString(context, newFuel));
+        let url = pathname + "?" + createQueryString(context, newFuel);
+        router.push(url, { scroll: false });
       } else {
-        router.push(pathname + "?" + createQueryString(context, option));
+        let url = pathname + "?" + createQueryString(context, option);
+        router.push(url, { scroll: false });
       }
       return e.target.checked;
     };

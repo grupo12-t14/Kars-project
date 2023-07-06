@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import carro from "../assets/car.webp";
+import Link from "next/link";
+import { useState } from "react";
 
 interface iProduct {
   id: string;
@@ -16,7 +18,10 @@ interface iProduct {
   description: string;
   coverImage: string;
 }
-const ProductCard = ({ announcement }: { announcement: iProduct }) => {
+const ProductCard = ({ announcement }: { announcement: any }) => {
+  const [customHref, setCustomHref] = useState(
+    `profile/${announcement.user.id}`
+  );
   const sellValueNumber = parseInt(announcement.sellPrice);
   const fipeValueNumber = parseInt(announcement.fipePrice);
   const isSellProfitable =
@@ -24,7 +29,7 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
 
   return (
     <>
-      <div className="min-w-[80%] max-w-[312px] max-sm:text-sm relative">
+      <div className=" max-w-[312px] max-sm:text-sm relative">
         <p
           className={
             isSellProfitable
@@ -35,11 +40,17 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
           {isSellProfitable && "$"}
         </p>
         <div className="hover:border-brand-100 hover:border-2 border-2 border-transparent">
-          <Image
-            className="bg-gray-500"
-            src={carro}
-            alt="coverImage"
-          />
+          <div className="flex object-contain">
+            <img
+              className="bg-gray-50"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://images.cars.com/cldstatic/wp-content/uploads/1673941437-1425510881103.jpeg";
+              }}
+              src={announcement.coverImage}
+              alt="coverImg"
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-2 p-3">
           <p className="font-bold">{announcement.model}</p>
@@ -49,9 +60,14 @@ const ProductCard = ({ announcement }: { announcement: iProduct }) => {
 
           <div className="flex place-items-center gap-2">
             <p className="bg-brand-100 text-white h-8 w-8 rounded-full flex place-items-center justify-center">
-              U
+              {announcement?.user?.name.charAt(0).toUpperCase()}
             </p>
-            <p>Usuário</p>
+
+            {
+              <Link href={customHref}>
+                <p>{announcement?.user?.name}</p>
+              </Link>
+            }
           </div>
           <div className="flex items-center gap-3 sm:gap-1 relative text-[12px]">
             <p className="p-1 rounded-md text-brand-100 bg-brand-400 text-[10px]">
