@@ -1,5 +1,13 @@
 import "./globals.scss";
 import { Inter } from "next/font/google";
+import Providers from "./providers";
+import ThemeSwitcher from "@/components/darkMode/DarkMode";
+import { UserProvider } from "../contexts/contexts";
+import { Navbar } from "@/components/navBar";
+import { Footer } from "@/components/footer";
+import { AnnouncementProvider } from "./contexts/announcement";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +23,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="text-black bg-white">
+        <ToastContainer/>
+        <UserProvider>
+          <AnnouncementProvider>
+            {children}
+            <Footer></Footer>
+          </AnnouncementProvider>
+        </UserProvider>
+      </body>
     </html>
   );
 }
