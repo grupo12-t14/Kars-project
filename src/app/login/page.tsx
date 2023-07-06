@@ -7,13 +7,14 @@ import { iLoginForm } from "@/types/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NextPage } from "next";
 import Link from "next/link";
-import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const Login: NextPage = () => {
   const { getLoginData, token }: any = useContext(UserContext);
   token && localStorage.removeItem("@TOKEN");
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,6 +22,7 @@ const Login: NextPage = () => {
   } = useForm<iLoginForm>({
     resolver: yupResolver(formSchema),
   });
+
   return (
     <main className="flex flex-col justify-between h-screen w-full bg-gray-800">
       <div className="flex items-center h-full justify-center">

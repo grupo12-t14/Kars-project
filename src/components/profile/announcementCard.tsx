@@ -1,22 +1,12 @@
 import Image from "next/image";
 import carro from "../../assets/car.webp";
 import { iAnnouncement } from "../../app/profile/page";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { UserContext } from "@/contexts/contexts";
 import jwt from "jsonwebtoken";
-const VisitorUser = {
-  id: "12",
-  name: "",
-  accountType: "",
-};
 
-const OwnerUser = {
-  id: "12",
-  name: "",
-  accountType: "",
-};
 interface iAnnouncementCardProps {
-  element: iAnnouncement;
+  element: any;
   params: string;
   setEditModalOpen: Dispatch<SetStateAction<boolean>> | undefined;
   setAnnouncementId: Dispatch<SetStateAction<string>> | undefined;
@@ -28,9 +18,9 @@ export const AnnouncementCard = ({
   setEditModalOpen,
   setAnnouncementId,
 }: iAnnouncementCardProps): JSX.Element => {
-  console.log(params);
   const { token }: any = useContext(UserContext);
   const decodedToken: any = jwt.decode(token);
+  const [auxImgSrc, setAuxImgSrc] = useState("");
   let check;
   if (token) {
     check = decodedToken.sub === params;
@@ -51,11 +41,14 @@ export const AnnouncementCard = ({
         </p>
       )}
 
-      <Image
-        className="object-cover"
-        src={carro}
-        alt="AnnouncementImage"
-      ></Image>
+      <img
+        className="bg-gray-500"
+        onError={(e) => {
+          e.currentTarget.src = carro.src;
+        }}
+        src={element.coverImage}
+        alt="coverImg"
+      />
       <p className="font-bold">
         {element.brand} - {element.model}
       </p>
