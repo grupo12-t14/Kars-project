@@ -20,6 +20,8 @@ interface iProduct {
   description: string;
   coverImage: string;
 }
+const ProductCard = ({ announcement }: { announcement: iProduct }) => {
+  const { router }: any = useContext(UserContext);
 const ProductCard = ({ announcement }: { announcement: any }) => {
   const [customHref, setCustomHref] = useState(
     `profile/${announcement.user.id}`
@@ -28,11 +30,11 @@ const ProductCard = ({ announcement }: { announcement: any }) => {
   const fipeValueNumber = parseInt(announcement.fipePrice);
   const isSellProfitable =
     sellValueNumber + fipeValueNumber * 0.05 <= fipeValueNumber;
-  const { router }: any = useContext(UserContext);
 
+     
   return (
     <>
-      <div className=" max-w-[312px] max-sm:text-sm relative">
+       <div className="min-w-[80%] max-w-[312px] max-sm:text-sm relative cursor-pointer">
         <p
           className={
             isSellProfitable

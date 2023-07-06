@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { commentSchema } from "@/schemas/commentSchema";
 import { UserContext } from "@/contexts/contexts";
-import { AnnouncementContext } from "@/app/contexts/announcement";
+import { iCommentForm } from "@/types/types";
 
 const Detail = () => {
   const { getCommentData, commentsList, user, announcement }: any =
@@ -58,6 +58,12 @@ const Detail = () => {
     imageMainCar,
   ];
 
+  const onSubmit = (formData: any) => {
+    getCommentData(formData);
+    setValue("content", "");
+    setInputValue("");
+  };
+
   return (
     <main
       style={{ paddingBottom: `${padding}px` }}
@@ -72,8 +78,9 @@ const Detail = () => {
           <div className="w-full md:w-[60%] md:mt-0">
             <div className="w-full h-[355px] flex justify-center items-center p[10px] bg-gray-950 rounded ">
               <Image
-                src={imageMainCar}
+                src={`/${announcement?.coverImage}`}
                 width={100}
+                height={100}
                 className="w-min-[300px] object-cover"
                 alt={"imagem do carro"}
               />
@@ -117,13 +124,7 @@ const Detail = () => {
                 <>
                   {commentsList.map((elem: any, index: any) => {
                     return (
-                      <Comment
-                        key={index}
-                        name={elem.name}
-                        image={elem.image}
-                        content={elem.content}
-                        createdAt={elem.createdAt}
-                      />
+                      <Comment key={index} pageUser={user} comment={elem} />
                     );
                   })}
                 </>
@@ -131,12 +132,12 @@ const Detail = () => {
             </div>
 
             <form
-              onSubmit={handleSubmit(getCommentData)}
+              onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-[6px] sm:gap-3 w-full p-[36px]"
             >
               <div className="flex items-center gap-2">
                 <div className="bg-brand-100 w-[30px] h-[30px] rounded-full flex items-center justify-center">
-                  <p className="text-gray-1 font-bold">
+                  <p className="text-gray-600 font-bold">
                     {user?.name[0].toUpperCase()}
                   </p>
                 </div>
@@ -217,7 +218,7 @@ const Detail = () => {
               className="bg-gray-950 rounded w-full p-[40px] mt-[52px] flex flex-col justify-center"
             >
               <div className="bg-brand-100 w-[77px] h-[77px] rounded-full flex justify-center items-center mx-auto">
-                <p className="text-gray-1 font-bold">
+                <p className="text-gray-600 font-bold">
                   {user?.name[0].toUpperCase()}
                 </p>
               </div>

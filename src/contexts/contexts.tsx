@@ -22,11 +22,13 @@ export const UserProvider = ({ children }: any) => {
   const tokenString = token + "";
   const decodedToken = jwt.decode(tokenString);
   const { id } = useParams();
-  const [commentsList, SetCommentsList] = useState([]);
+  const [commentsList, setCommentsList] = useState([]);
   const [user, setUser] = useState(null);
   const [announcement, setAnnouncement] = useState(null);
+  const [commentId, setCommentId] = useState("");
   const [userInfo, setUserInfo] = useState<iUser | undefined>(undefined);
   const [isUserLoading, setIsUserLoading] = useState(false);
+
 
   const getRegisterData = (data: iRegisterForm) => {
     async function fetchData() {
@@ -131,6 +133,7 @@ export const UserProvider = ({ children }: any) => {
         const response = await localApi.post(`/comments`, newData, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        getComments();
       } catch (error) {
         console.log(error);
       }
@@ -139,18 +142,26 @@ export const UserProvider = ({ children }: any) => {
     }
   };
 
+  const getComments = async () => {
+    try {
+      const response = await localApi.get(`comments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCommentsList(response.data);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     const getComments = async () => {
       try {
         const response = await localApi.get(`comments/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        SetCommentsList(response.data);
-        return commentsList;
+        setCommentsList(response.data);
       } catch (error) {}
     };
     getComments();
-  }, [commentsList]);
+  }, [token, id]);
 
   useEffect(() => {
     const getUserById = async () => {
@@ -174,7 +185,29 @@ export const UserProvider = ({ children }: any) => {
       }
     };
     getAnnouncementByid();
-  }, []);
+  }, [id]);
+
+  const editCommentReq = async (formData: any) => {
+    try {
+      await localApi.patch(`/comments/${commentId}`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      getComments();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteComment = async (id: string) => {
+    try {
+      await localApi.delete(`/comments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      getComments();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -198,6 +231,10 @@ export const UserProvider = ({ children }: any) => {
         commentsList,
         user,
         announcement,
+        editCommentReq,
+        setCommentId,
+        deleteComment,
+        getComments,
       }}
     >
       {children}

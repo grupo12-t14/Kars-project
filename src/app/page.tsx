@@ -1,6 +1,8 @@
-"use client"
+"use client";
 import Image from "next/image";
 import imageMainCar from "../assets/mainImageDetail.png";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/contexts";
 
 interface ModalEditConetext {
   toggleModalEditAddres: () => void;
@@ -8,18 +10,12 @@ interface ModalEditConetext {
 }
 
 export default function Home() {
+  const { router }: any = useContext(UserContext);
+  router.push("/login");
   
-  const images = [
-    imageMainCar,
-    imageMainCar,
-    imageMainCar,
-    imageMainCar,
-    imageMainCar,
-    imageMainCar,
-  ];
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <p className="bg-brand-100">Kars project</p>                  
+      <p className="bg-brand-100">Kars project</p>
     </main>
   );
 }
